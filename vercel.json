@@ -1,0 +1,9 @@
+{
+    "redirects": [
+      {
+        "source": "/(.*)", 
+        "destination": "http://poem.fzbz-stu.click/$1", 
+        "permanent": false  
+      }
+    ]
+}
