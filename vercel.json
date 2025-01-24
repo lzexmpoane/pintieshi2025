@@ -2,7 +2,7 @@
     "redirects": [
       {
         "source": "/(.*)", 
-        "destination": "http://poem.fzbz-stu.click/$1", 
+        "destination": "http://pintieshi2025.vercel.app/$1", 
         "permanent": false  
       }
     ]
