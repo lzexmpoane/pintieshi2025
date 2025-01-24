@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--手机自适应大小 -->
+    <meta
+      name="viewport"
+      content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>将昨天拼成诗</title>
+    <link href="css/测试.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!--	<div id="QHSJ" :style="{ height: windowHeight + 'px' }">-->
+    <!--	<img src="2寸.png"  v-viewer>-->
+
+    <div id="QHSJ" :style="{ height: windowHeight}" ref="fullPage" v-cloak>
+      <div class="fullPageContainer" ref="fullPageContainer">
+
+        <!--			第一页-->
+        <div class="p_one" :style="{width:windowWidth,height:windowHeight} ">
+          <audio
+            src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/bgm.MP3"
+            type="audio/mpeg"
+            id="audios"
+            loop
+          ></audio>
+          <!--
+				<audio  loop="loop" autoplay="autoplay" id="musicAudio" >
+     				 <source src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/bgm.MP3" type="audio/mpeg"/>
+				</audio>
+-->
+		<!-- 170标志 -->
+          <img
+            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/qhsjX170%402x.png"
+            style="margin-top: 30px; width: 163px"
+          />
+		<!-- 标题 -->
+          <img
+            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/%E5%B0%86%E6%98%A8%E5%A4%A9%E6%8B%BC%E6%88%90%E8%AF%97%402x.png"
+            style="margin-top: 30%; width: 90%"
+          />
+		<!-- 按钮 -->
+          <img
+            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/%E8%BF%9B%E5%85%A5%402x.png"
+            @click="next()"
+            style="width: 35%; top: 20%; position: relative"
+          />
+        </div>
+
+        <!--			第2页-->
+        <div class="p_two" :style="{width:windowWidth,height:windowHeight}">
+          <div class="userbox">
+            <div class="boxlist">
+              <div class="usertitle">基本信息填写</div>
+              <div class="userthing" style="margin-top: 40px">
+                <div class="userleft">
+                  <span style="color: red">*</span>
+                  <span>校区与届数</span>
+                </div>
+                <div>
+                  <select
+                    class="userbutton"
+                    :style="{width:inputList.user_in =='三江口校区' || inputList.user_in =='吉祥山校区' ? '105px' :'195px'}"
+                    v-model="inputList.user_in"
+                  >
+                    <option v-for="(item,index) in user_in">{{item}}</option>
+                  </select>
+                  <select
+                    class="userbutton"
+                    style="width: 85px"
+                    v-model="inputList.overyear"
+                    v-show="inputList.user_in =='三江口校区' || inputList.user_in =='吉祥山校区'"
+                  >
+                    <option v-for="(item,index) in overyear">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="userthing">
+                <div class="userleft">
+                  <span style="color: red">*</span>
+                  姓名/昵称
+                </div>
+                <input
+                  maxlength="10"
+                  class="userbutton"
+                  type="text"
+                  placeholder="请输入姓名"
+                  v-model="inputList.name"
+                />
+              </div>
+
+              <div class="userthing">
+                <div class="userleft">现在的位置</div>
+                <input
+                  maxlength="10"
+                  class="userbutton"
+                  type="text"
+                  placeholder="请输入地址"
+                  v-model="inputList.place"
+                />
+              </div>
+
+              <div
+                class="into"
+                @click="GoToUser()"
+                :style="{opacity:input_warnning == '立即提交' && inputList.name !='' ? '1' :'0.45'}"
+              >
+                {{input_warnning}}
+              </div>
+              <!--						<button  @click="next()">完成</button>-->
+            </div>
+          </div>
+          <div style="text-align: center; width: 100%">
+            <img
+              src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/hqsjX170.png"
+            />
+          </div>
+        </div>
+
+        <!--			第3页选择题-->
+
+        <div
+          class="p_three"
+          :style="{width:windowWidth,height:windowHeight}"
+          v-show="inputList.user_in !='只是来凑热闹体验H5的啦'"
+        >
+          <div class="three_logo">
+            <img
+              src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/qhsjX170%402x.png"
+              style="width: 163px"
+            />
+          </div>
+
+          <div class="ask_box">
+            <div
+              v-for="(item,index) in AskList"
+              v-show="index+1 ==Asknumber"
+              style="margin: 0px 17px; color: white"
+            >
+              <div class="timu_box">
+                <div class="timu">{{item.timu1}}</div>
+                <div class="timu" v-show="item.timu2 != ''">{{item.timu2}}</div>
+              </div>
+
+              <div :class="[item.timu2 != '' ? 'click_box' : 'click_box_a']">
+                <div
+                  v-for="(item_x,index_x) in item.xuanxiang"
+                  class="xuanxiang"
+                  @click="PutChoose(item_x,index,index_x,item)"
+                >
+                  <span
+                    class="ask_circle"
+                    :id="'xuanxiang_'+ index + '_' + index_x"
+                  ></span>
+                  {{item_x}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            @click="GoToChooseList()"
+            class="tijiao"
+            v-show="Asknumber<9"
+            :style="{opacity:AskList[Asknumber-1].ifchoose ==1 ? '1' :'0.6'}"
+          >
+            下一题
+          </div>
+          <div @click="GoToChooseList()" class="tijiao" v-show="Asknumber==9">
+            提交
+          </div>
+        </div>
+
+        <!--			第4页-->
+        <div class="p_four" :style="{width:windowWidth,height:windowHeight}">
+          <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+          <div class="logo_title">
+            <img
+              src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png"
+              style="width: 77%"
+            />
+          </div>
+          <div class="imgbox">
+            <div
+              class="list_test"
+              v-for="(item,index) in ChooseLine_chage"
+              @click="choose(item,index)"
+              v-show="index+1>(ChooseLineList-1)*8  && index+1 <= ChooseLineList*8 "
+            >
+              <div class="circle" v-show="item.Ifchoose!=0">
+                {{item.ChooseNum}}
+              </div>
+
+              <div>
+                <!--						{{item.page}}-->
+                <img
+                  :src="item.page"
+                  class="choosen_img"
+                  :style="{width:item.img_width}"
+                />
+                <!--						<img :src="ChooseLine[0].page" :style="{width:qqq}">-->
+              </div>
+            </div>
+          </div>
+
+          <div :style="{top:choose_botton_top}" style="position: fixed">
+            <div class="choose_botton">
+              <div class="shang" @click="uplist()">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%8A%E4%B8%80%E7%BB%84.png"
+                />
+              </div>
+              <div class="xia" @click="downlist()">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%8B%E4%B8%80%E7%BB%84.png"
+                />
+              </div>
+              <div class="clean" @click="clean()">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%B8%85%E7%A9%BA.png"
+                />
+              </div>
+            </div>
+
+            <div style="margin-left: 25px; margin-top: 20px" @click="doimg()">
+              <img
+                src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%BB%E6%8C%89%E9%92%AE.png"
+                style="max-width: 326px"
+                :style="{opacity:Choosing_num>=4 ? '1' :'0.7'}"
+              />
+            </div>
+          </div>
+          <div class="shupai" :style="{top:shupai_top}">
+            这些内容情怀三江往期推送
+          </div>
+          <span class="full" :style="{top:warnning_top}" v-show="Iffull==1"
+            >版面有限，只能选择6句哦</span
+          >
+        </div>
+
+        <!--		拼贴页面-->
+        <div>
+          <img
+            crossorigin="anonymous"
+            :src=" pt_bg_url+'?any_string_is_ok'"
+            :style="{height:windowHeight,top:noreal_bg_top}"
+            class="real_bg"
+          />
+          <div
+            class="pt_bg"
+            style="padding: 0 4%"
+            :style="{height:windowHeight }"
+          >
+            <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+            <div class="titleimg">
+              <img
+                src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png"
+                style="width: 77%"
+              />
+            </div>
+
+            <div class="book">
+              <div class="b1 bookpos">
+                <span v-show="Choosing_show>0">
+                  <img
+                    :src="Choosing[1]"
+                    :style="{width:Choosing_width[1].img_width}"
+                  />
+                </span>
+              </div>
+              <div class="b2 bookpos">
+                <span v-show="Choosing_show>1"
+                  ><img
+                    :src="Choosing[2]"
+                    :style="{width:Choosing_width[2].img_width}"
+                /></span>
+              </div>
+              <div class="b3 bookpos">
+                <span v-show="Choosing_show>2"
+                  ><img
+                    :src="Choosing[3]"
+                    :style="{width:Choosing_width[3].img_width}"
+                /></span>
+              </div>
+              <div class="b4 bookpos">
+                <span v-show="Choosing_show>3"
+                  ><img
+                    :src="Choosing[4]"
+                    :style="{width:Choosing_width[4].img_width}"
+                /></span>
+              </div>
+              <div class="b5 bookpos">
+                <span v-show="Choosing_show>4"
+                  ><img
+                    :src="Choosing[5]"
+                    :style="{width:Choosing_width[5].img_width}"
+                /></span>
+              </div>
+              <div class="b6 bookpos">
+                <span v-show="Choosing_show>5"
+                  ><img
+                    :src="Choosing[6]"
+                    :style="{width:Choosing_width[6].img_width}"
+                /></span>
+              </div>
+
+              <div
+                class="bookpos"
+                style="text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.62)"
+              >
+                <div class="book_test">
+                  by {{inputList.name}}
+                  <span v-show="inputList.overyear != '毕业届数' "
+                    >({{inputList.overyear}})</span
+                  >
+                </div>
+                <div
+                  class="book_test"
+                  v-show="inputList.place!=''"
+                  style="
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+                  "
+                >
+                  <img
+                    src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/icon.png"
+                    style="height: 15px; margin-right: 5px"
+                  />
+                  {{inputList.place}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="top: 3380px; position: fixed; left: 0px; right: 0px"
+            :style="{top:under_top}"
+          >
+            <div class="under">
+              <div class="again" v-show="Screenimg ==''" @click="pre()">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%86%8D%E6%8B%BC%E4%B8%80%E6%AC%A1.png"
+                  style="width: 100px"
+                />
+              </div>
+              <!--						<div class="save" v-show="Screenimg ==''" @click="handleScreenshot()"><img src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png" style="width: 100px"></div>-->
+              <div class="save" v-show="botton_show==0" @click="next()">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png"
+                  style="width: 100px"
+                />
+              </div>
+              <div class="again" v-show="Screenimg !=''">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png"
+                  style="width: 100%"
+                />
+              </div>
+              <div class="erweima">
+                <img
+                  :src="erweima_src +'?any_string_is_ok'"
+                  style="width: 80px"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="save_warn"
+            :style="{top:save_top}"
+            v-show="Screenimg !=''"
+          >
+            『长按』可将海报保存至相册
+          </div>
+          <img
+            class="Screenimg"
+            :src="Screenimg"
+            alt="截图"
+            :style="{width:windowWidth , top:Screenimg_top}"
+            v-show="Screenimg !=''"
+          />
+        </div>
+
+        <!--		实际的截图页面-->
+        <div ref="faultTree">
+          <div class="pt_bg" :style="{height:windowHeight }">
+            <!--				<div class="pt_bg" ref="faultTree" :style="{height:windowHeight }" >-->
+            <img
+              crossorigin="anonymous"
+              :src=" pt_bg_url+'?any_string_is_ok'"
+              :style="{height:windowHeight,top:real_bg_top}"
+              class="real_bg"
+              id="real_bg"
+            />
+            <div style="padding: 0 4%; height: 100%">
+              <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+              <div class="titleimg">
+                <img
+                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png?any_string_is_ok"
+                  style="width: 77%"
+                  crossorigin="anonymous"
+                />
+              </div>
+
+              <div class="book">
+                <!--					<div class="b1 bookpos"><span  v-show="Choosing_show>0"> <img :src="Choosing[1]+'?any_string_is_ok'" :style="{width:Choosing_width[1].img_width}" crossorigin="anonymous"> </span></div>-->
+                <div class="b1 bookpos" v-show="Choosing_show>0">
+                  <!--							<div :style="{width:Choosing_width[1].img_width, height:Choosing_width[1].img_height , backgroundImage: 'url('+ Choosing[1] +')'}" style="    background-size: contain;"></div>-->
+                  <img
+                    :src="Choosing[1]"
+                    :style="{width:Choosing_width[1].img_width}"
+                  />
+                </div>
+                <div class="b2 bookpos">
+                  <span v-show="Choosing_show>1"
+                    ><img
+                      :src="Choosing[2]+'?any_string_is_ok'"
+                      :style="{width:Choosing_width[2].img_width}"
+                      crossorigin="anonymous"
+                  /></span>
+                </div>
+                <div class="b3 bookpos">
+                  <span v-show="Choosing_show>2"
+                    ><img
+                      :src="Choosing[3]+'?any_string_is_ok'"
+                      :style="{width:Choosing_width[3].img_width}"
+                      crossorigin="anonymous"
+                  /></span>
+                </div>
+                <div class="b4 bookpos">
+                  <span v-show="Choosing_show>3"
+                    ><img
+                      :src="Choosing[4]+'?any_string_is_ok'"
+                      :style="{width:Choosing_width[4].img_width}"
+                      crossorigin="anonymous"
+                  /></span>
+                </div>
+                <div class="b5 bookpos">
+                  <span v-show="Choosing_show>4"
+                    ><img
+                      :src="Choosing[5]+'?any_string_is_ok'"
+                      :style="{width:Choosing_width[5].img_width}"
+                      crossorigin="anonymous"
+                  /></span>
+                </div>
+                <div class="b6 bookpos">
+                  <span v-show="Choosing_show>5"
+                    ><img
+                      :src="Choosing[6]+'?any_string_is_ok'"
+                      :style="{width:Choosing_width[6].img_width}"
+                      crossorigin="anonymous"
+                  /></span>
+                </div>
+
+                <div
+                  class="bookpos"
+                  style="text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.62)"
+                >
+                  <div class="book_test">
+                    by {{inputList.name}}
+                    <span v-show="inputList.overyear != '毕业届数' "
+                      >({{inputList.overyear}})</span
+                    >
+                  </div>
+                  <div
+                    class="book_test"
+                    v-show="inputList.place!=''"
+                    style="
+                      display: flex;
+                      justify-content: end;
+                      align-items: center;
+                    "
+                  >
+                    <img
+                      src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/icon.png"
+                      style="height: 15px; margin-right: 5px"
+                    />
+                    {{inputList.place}}
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="position: fixed; left: 0px; right: 0px"
+                :style="{top:under_top_real}"
+              >
+                <div class="under">
+                  <div class="again">
+                    <img
+                      :src="join_src+'?any_string_is_ok'"
+                      style="width: 100%"
+                      crossorigin="anonymous"
+                    />
+                  </div>
+                  <div class="erweima">
+                    <img
+                      :src="erweima_src +'?any_string_is_ok'"
+                      style="width: 80px"
+                      crossorigin="anonymous"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script src="js/测试.js"></script>
+    <script src="js/html2canvas.min.js"></script>
+    <!--
+	<script>
+	var isAndroid = navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; // 安卓（android）为true
+		
+		if(isAndroid ==true){
+	window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
+var context = new window.AudioContext();
+var source = null;
+var audioBuffer = null;
+//最好使用本地音频文件，无跨域问题
+function playSound() {
+	source = context.createBufferSource();//获取音频数据
+	source.buffer = audioBuffer;
+	source.connect(context.destination);
+	source.start(); //立即播放
+	source.loop = true
+}
+function initSound(arrayBuffer) {
+	context.decodeAudioData(arrayBuffer, function (buffer) { //解码成功时的回调函数
+		audioBuffer = buffer;
+		playSound();
+	}, function (e) { //解码出错时的回调函数
+		console.log('Error decoding file', e);
+	});
+}
+function loadAudioFile(url) {
+	var xhr = new XMLHttpRequest(); //通过XHR下载音频文件
+	xhr.open('GET', url, true);
+	xhr.responseType = 'arraybuffer';
+	xhr.onload = function (e) { //下载完成
+		initSound(this.response);
+		console.log(111)
+	};
+	xhr.send();
+}
+loadAudioFile('http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/bgm.MP3')
+}
+	
+	</script>
+-->
+  </body>
+</html>
