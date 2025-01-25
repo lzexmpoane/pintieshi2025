@@ -36,19 +36,19 @@
 -->
 		<!-- 170标志 -->
           <img
-            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/qhsjX170%402x.png"
+            src="./img/title/author.png"
             style="margin-top: 30px; width: 163px"
           />
 		<!-- 标题 -->
           <img
-            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/%E5%B0%86%E6%98%A8%E5%A4%A9%E6%8B%BC%E6%88%90%E8%AF%97%402x.png"
-            style="margin-top: 30%; width: 90%"
+            src="./img/title/title.png"
+            style="margin-top: 25%; width: 75%"
           />
 		<!-- 按钮 -->
           <img
-            src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/%E8%BF%9B%E5%85%A5%402x.png"
+            src="./img/ui/start.png"
             @click="next()"
-            style="width: 35%; top: 20%; position: relative"
+            style="width: 35%; top: 15%; position: relative"
           />
         </div>
 
@@ -60,12 +60,12 @@
               <div class="userthing" style="margin-top: 40px">
                 <div class="userleft">
                   <span style="color: red">*</span>
-                  <span>校区与届数</span>
+                  <span>年级与班级</span>
                 </div>
                 <div>
                   <select
                     class="userbutton"
-                    :style="{width:inputList.user_in =='三江口校区' || inputList.user_in =='吉祥山校区' ? '105px' :'195px'}"
+                    :style="{width:inputList.user_in =='高一' || inputList.user_in =='高二' || inputList.user_in =='高三' ? '105px' :'195px'}"
                     v-model="inputList.user_in"
                   >
                     <option v-for="(item,index) in user_in">{{item}}</option>
@@ -74,7 +74,7 @@
                     class="userbutton"
                     style="width: 85px"
                     v-model="inputList.overyear"
-                    v-show="inputList.user_in =='三江口校区' || inputList.user_in =='吉祥山校区'"
+                    v-show="inputList.user_in =='高一' || inputList.user_in =='高二' || inputList.user_in =='高三'"
                   >
                     <option v-for="(item,index) in overyear">{{item}}</option>
                   </select>
@@ -123,66 +123,13 @@
           </div>
         </div>
 
-        <!--			第3页选择题-->
-
-        <div
-          class="p_three"
-          :style="{width:windowWidth,height:windowHeight}"
-          v-show="inputList.user_in !='只是来凑热闹体验H5的啦'"
-        >
-          <div class="three_logo">
-            <img
-              src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%A6%96%E9%A1%B5/qhsjX170%402x.png"
-              style="width: 163px"
-            />
-          </div>
-
-          <div class="ask_box">
-            <div
-              v-for="(item,index) in AskList"
-              v-show="index+1 ==Asknumber"
-              style="margin: 0px 17px; color: white"
-            >
-              <div class="timu_box">
-                <div class="timu">{{item.timu1}}</div>
-                <div class="timu" v-show="item.timu2 != ''">{{item.timu2}}</div>
-              </div>
-
-              <div :class="[item.timu2 != '' ? 'click_box' : 'click_box_a']">
-                <div
-                  v-for="(item_x,index_x) in item.xuanxiang"
-                  class="xuanxiang"
-                  @click="PutChoose(item_x,index,index_x,item)"
-                >
-                  <span
-                    class="ask_circle"
-                    :id="'xuanxiang_'+ index + '_' + index_x"
-                  ></span>
-                  {{item_x}}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            @click="GoToChooseList()"
-            class="tijiao"
-            v-show="Asknumber<9"
-            :style="{opacity:AskList[Asknumber-1].ifchoose ==1 ? '1' :'0.6'}"
-          >
-            下一题
-          </div>
-          <div @click="GoToChooseList()" class="tijiao" v-show="Asknumber==9">
-            提交
-          </div>
-        </div>
-
+        
         <!--			第4页-->
         <div class="p_four" :style="{width:windowWidth,height:windowHeight}">
-          <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+          <div class="banner">福州八中学生会特别企划</div>
           <div class="logo_title">
             <img
-              src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png"
+              src="./img/title/title_long.png"
               style="width: 77%"
             />
           </div>
@@ -213,24 +160,24 @@
             <div class="choose_botton">
               <div class="shang" @click="uplist()">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%8A%E4%B8%80%E7%BB%84.png"
+                  src="./img/ui/up.png"
                 />
               </div>
               <div class="xia" @click="downlist()">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%8B%E4%B8%80%E7%BB%84.png"
+                  src="./img/ui/down.png"
                 />
               </div>
               <div class="clean" @click="clean()">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%B8%85%E7%A9%BA.png"
+                  src="./img/ui/clear.png"
                 />
               </div>
             </div>
 
             <div style="margin-left: 25px; margin-top: 20px" @click="doimg()">
               <img
-                src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%B8%BB%E6%8C%89%E9%92%AE.png"
+                src="./img/ui/build.png"
                 style="max-width: 326px"
                 :style="{opacity:Choosing_num>=4 ? '1' :'0.7'}"
               />
@@ -248,7 +195,7 @@
         <div>
           <img
             crossorigin="anonymous"
-            :src=" pt_bg_url+'?any_string_is_ok'"
+            :src="pt_bg_url"
             :style="{height:windowHeight,top:noreal_bg_top}"
             class="real_bg"
           />
@@ -257,10 +204,10 @@
             style="padding: 0 4%"
             :style="{height:windowHeight }"
           >
-            <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+            <div class="banner">福州八中学生会特别企划</div>
             <div class="titleimg">
               <img
-                src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png"
+                src="./img/title/title_long.png"
                 style="width: 77%"
               />
             </div>
@@ -346,14 +293,14 @@
             <div class="under">
               <div class="again" v-show="Screenimg ==''" @click="pre()">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%86%8D%E6%8B%BC%E4%B8%80%E6%AC%A1.png"
+                  src="./img/ui/restart.png"
                   style="width: 100px"
                 />
               </div>
               <!--						<div class="save" v-show="Screenimg ==''" @click="handleScreenshot()"><img src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png" style="width: 100px"></div>-->
               <div class="save" v-show="botton_show==0" @click="next()">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png"
+                  src="./img/ui/over.png"
                   style="width: 100px"
                 />
               </div>
@@ -365,7 +312,7 @@
               </div>
               <div class="erweima">
                 <img
-                  :src="erweima_src +'?any_string_is_ok'"
+                  :src="erweima_src"
                   style="width: 80px"
                 />
               </div>
@@ -394,16 +341,16 @@
             <!--				<div class="pt_bg" ref="faultTree" :style="{height:windowHeight }" >-->
             <img
               crossorigin="anonymous"
-              :src=" pt_bg_url+'?any_string_is_ok'"
+              :src="pt_bg_url"
               :style="{height:windowHeight,top:real_bg_top}"
               class="real_bg"
               id="real_bg"
             />
             <div style="padding: 0 4%; height: 100%">
-              <div class="banner">福州八中170周年 × 情怀三江特别企划</div>
+              <div class="banner">福州八中学生会特别企划</div>
               <div class="titleimg">
                 <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E6%A0%87%E9%A2%98.png?any_string_is_ok"
+                  src="./img/title/title_long.png"
                   style="width: 77%"
                   crossorigin="anonymous"
                 />
@@ -421,7 +368,7 @@
                 <div class="b2 bookpos">
                   <span v-show="Choosing_show>1"
                     ><img
-                      :src="Choosing[2]+'?any_string_is_ok'"
+                      :src="Choosing[2]"
                       :style="{width:Choosing_width[2].img_width}"
                       crossorigin="anonymous"
                   /></span>
@@ -429,7 +376,7 @@
                 <div class="b3 bookpos">
                   <span v-show="Choosing_show>2"
                     ><img
-                      :src="Choosing[3]+'?any_string_is_ok'"
+                      :src="Choosing[3]"
                       :style="{width:Choosing_width[3].img_width}"
                       crossorigin="anonymous"
                   /></span>
@@ -437,7 +384,7 @@
                 <div class="b4 bookpos">
                   <span v-show="Choosing_show>3"
                     ><img
-                      :src="Choosing[4]+'?any_string_is_ok'"
+                      :src="Choosing[4]"
                       :style="{width:Choosing_width[4].img_width}"
                       crossorigin="anonymous"
                   /></span>
@@ -445,7 +392,7 @@
                 <div class="b5 bookpos">
                   <span v-show="Choosing_show>4"
                     ><img
-                      :src="Choosing[5]+'?any_string_is_ok'"
+                      :src="Choosing[5]"
                       :style="{width:Choosing_width[5].img_width}"
                       crossorigin="anonymous"
                   /></span>
@@ -453,7 +400,7 @@
                 <div class="b6 bookpos">
                   <span v-show="Choosing_show>5"
                     ><img
-                      :src="Choosing[6]+'?any_string_is_ok'"
+                      :src="Choosing[6]"
                       :style="{width:Choosing_width[6].img_width}"
                       crossorigin="anonymous"
                   /></span>
@@ -494,14 +441,14 @@
                 <div class="under">
                   <div class="again">
                     <img
-                      :src="join_src+'?any_string_is_ok'"
+                      :src="join_src"
                       style="width: 100%"
                       crossorigin="anonymous"
                     />
                   </div>
                   <div class="erweima">
                     <img
-                      :src="erweima_src +'?any_string_is_ok'"
+                      :src="erweima_src"
                       style="width: 80px"
                       crossorigin="anonymous"
                     />

@@ -85,7 +85,7 @@ var QHSJ = new Vue({
 
     // 背景图片的URL地址
     pt_bg_url:
-      "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E8%83%8C%E6%99%AF/%E8%83%8C%E6%99%AF1.jpg",
+      "./img/bgs/背景1.png",
 
     // 页面上的内容长度
     len: 6,
@@ -123,233 +123,25 @@ var QHSJ = new Vue({
     inputList: {
       name: "", // 用户的名字
       place: "", // 用户的地点
-      overyear: "毕业届数", // 毕业届数
-      user_in: "请选择校区", // 校区选择
+      overyear: "班级", // 毕业届数
+      user_in: "请选择年级", // 校区选择
     },
 
     // 毕业届数和校区选项列表
     overyear: ["毕业届数"],
     user_in: [
-      "请选择校区",
-      "只是来凑热闹体验H5的啦",
-      "三江口校区",
-      "吉祥山校区",
+      "请选择年级",
+      "匿名",
+      "高一",
+      "高二",
+      "高三"
     ],
     user_in_show: false, // 控制校区选择的显示
     school: "", // 校区
     input_warnning: "请填写必填项", // 输入提示
     input_warnning_show: false, // 输入提示是否显示
 
-    //选择题题库,默认为三江口的
-    AskList: [
-      {
-        timu1: "对“三江口的四季”",
-        timu2: "印象最深的时刻：",
-        xuanxiang: {
-          1: "A.小路两侧花圃里盛开的桃花",
-          2: "B.图书馆前飘落的美丽异木棉",
-          3: "C.深秋里宿舍楼旁金黄的银杏",
-          4: "D.环校小路旁的缕缕桂香",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 1,
-      },
-      {
-        timu1: "对“三江口的妖风”",
-        timu2: "感受最深的时刻：",
-        xuanxiang: {
-          1: "A.春天伴着“倒春寒”一起袭来的寒潮",
-          2: "B.夏天在宿舍“一线抗台”",
-          3: "C.秋天被”秋老虎“烘烤过的热浪",
-          4: "D.冬天刮过香樟广场的呼呼冷风",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 2,
-      },
-      {
-        timu1: "你印象最深刻的",
-        timu2: "八中奔跑时刻：",
-        xuanxiang: {
-          1: "A.下课百米冲刺奔向食堂",
-          2: "B.放学飞奔回宿舍拿手机",
-          3: "C.每周五放学抢校车",
-          4: "D.大课间从超市狂奔回教室",
-          5: "E.体测",
-        },
-        len: 5,
-        ifchoose: 0,
-        num: 3,
-      },
-      {
-        timu1: "你最喜欢去哪散步？",
-        timu2: "",
-        xuanxiang: {
-          1: "A. 夜色笼罩的操场",
-          2: "B. 漆黑一片的科技楼",
-          3: "C.昏黄灯光下的环校小路",
-          4: "D.美术教室前的长走廊",
-          5: "E.教学楼的空中花园",
-        },
-        len: 5,
-        ifchoose: 0,
-        num: 4,
-      },
-      {
-        timu1: "你最喜欢去哪自习？",
-        timu2: "",
-        xuanxiang: {
-          1: "A.教室（最好是空的）",
-          2: "B.大梦书屋（点杯喝的先）",
-          3: "C.图书馆（容易被小说绊住脚步）",
-          4: "D.严复学堂（好多人啊.jpg）",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 5,
-      },
-      {
-        timu1: "你心目中食堂TOP：",
-        timu2: "",
-        xuanxiang: {
-          1: "A.早早绝版的渔粉",
-          2: "B.一楼麻辣烫的口水鸡",
-          3: "C.炖罐榜首鸡蛋肉泥",
-          4: "D.夜宵特辑之炒河粉",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 6,
-      },
-      {
-        timu1: "哪一首歌",
-        timu2: "会带你穿越回三江口？",
-        xuanxiang: {
-          1: "A.《夏令时记录》",
-          2: "B.《倔强》",
-          3: "C.《海阔天空（纯音乐版）》",
-          4: "D.《克罗地亚狂想曲》",
-          5: "E.《星茶会》",
-          6: "F. 跑操bgm",
-        },
-        len: 6,
-        ifchoose: 0,
-        num: 7,
-      },
-      {
-        timu1: "你心中独属于三江口的",
-        timu2: "“学生时刻:”",
-        xuanxiang: {
-          1: "A.十点半熄灯的哨声",
-          2: "B.段长的拉线广播",
-          3: "C.每周五傍晚的堵车时刻",
-          4: "D.英语听力时卡车路过的轰鸣声",
-          5: "E.宿舍夜聊生管敲门时的寂静",
-        },
-        len: 5,
-        ifchoose: 0,
-        num: 8,
-      },
-      {
-        timu1: "你每年最期待的活动：",
-        timu2: "",
-        xuanxiang: {
-          1: "A.“把头发梳成大人模样，换上一身帅气西装”——成人礼",
-          2: "B.我和我最后的倔强，握紧双手绝对不放“——喊楼”",
-          3: "C.“现在向我们迎面走来的是……”——校运会",
-          4: "D.“难忘今宵，难忘今宵”——狂欢节",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 9,
-      },
-    ],
-
     Asknumber: 1,
-
-	// 吉祥山校区题库
-    AskList_JXS: [
-      {
-        timu1: "你印象最深刻的",
-        timu2: "八中奔跑时刻：",
-        xuanxiang: {
-          1: "A.下课百米冲刺奔向食堂",
-          2: "B.广播操音乐马上就要停了而你还在教室",
-          3: "C.体育课从空中操场狂奔回教室",
-          4: "D.体测",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 1,
-      },
-      {
-        timu1: "校园里治愈你的时刻：",
-        timu2: "",
-        xuanxiang: {
-          1: "A.从东门顺台阶而上看到喷泉开着",
-          2: "B.图书馆前樟树下晒太阳",
-          3: "C.傍晚和好友斜坡沿走下相伴回家",
-          4: "D.下午上课前广播站的播音",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 2,
-      },
-      {
-        timu1: "哪一个地点",
-        timu2: "留下了你的青春：",
-        xuanxiang: {
-          1: "A.青春广场上跨过成人门",
-          2: "B.体艺馆里（操场上）作为新生参加入学教育",
-          3: "C.坐在教学楼里听到考试终了的钟声响起",
-          4: "D.樟树前留下的毕业大合照",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 3,
-      },
-      {
-        timu1: "大课间冲进食堂",
-        timu2: "你的首要目标是什么：",
-        xuanxiang: {
-          1: "A.一口满足的鸡腿（炸的烤的都好吃）",
-          2: "B.新鲜出炉的薯条（上课偷吃必备）",
-          3: "C.热气腾腾的玉米（冬日暖手宝）",
-          4: "D.满满一碗的鱼丸（上大学吃不到）",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 4,
-      },
-      {
-        timu1: "狂欢节你最期待的事：",
-        timu2: "",
-        xuanxiang: {
-          1: "A.夜晚的班级狂欢（好热闹好好玩）",
-          2: "B.下午的精彩汇演（好帅好米）",
-          3: "C.热闹的跳蚤市场（别拦着我买买买）",
-          4: "D.动听的十佳决赛（神仙打架啦）",
-          5: "E.LED上的新年心声（看看大家又整了什么花活）",
-        },
-        len: 5,
-        ifchoose: 0,
-        num: 5,
-      },
-      {
-        timu1: "哪一首歌",
-        timu2: "会带你穿越回吉祥山？",
-        xuanxiang: {
-          1: "A.《Music Box Dancer》",
-          2: "B.《在希望的田野上（纯音乐版）》",
-          3: "C.《海阔天空（纯音乐版）》",
-          4: "D.《运动员进行曲》",
-        },
-        len: 4,
-        ifchoose: 0,
-        num: 6,
-      },
-    ],
   },
 
   // 挂载时加载必要数据
@@ -373,7 +165,7 @@ var QHSJ = new Vue({
     //
 
     this.gotochoose();
-    this.datadragEnd(260, 269);
+    this.datadragEnd(100, 109);
     //		console.log(this.ChooseLine_chage)
   },
 
@@ -389,7 +181,7 @@ var QHSJ = new Vue({
   },
 
   // 检测音频是否正常播放
-  methods: {
+  methods: {/*
     audioplayer() {
       //					console.log("play")
       var audio = document.getElementById("audios");
@@ -429,28 +221,16 @@ var QHSJ = new Vue({
           audioAutoPlay(audio);
         }
       }, 2000);
-    },
+    },*/
 
 	// 随机获取背景图
     getbg() {
-      if (this.inputList.user_in == "吉祥山校区") {
-        var bg_num = Math.floor(Math.random() * 4 + 20);
-
-        this.pt_bg_url =
-          "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E8%83%8C%E6%99%AF/%E8%83%8C%E6%99%AF" +
-          bg_num +
-          ".jpg" +
-          "?any_string_is_ok";
-        console.log(this.pt_bg_url);
-      } else {
-        var bg_num = Math.floor(Math.random() * 12 + 1);
-        this.pt_bg_url =
-          "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E8%83%8C%E6%99%AF/%E8%83%8C%E6%99%AF" +
-          bg_num +
-          ".jpg" +
-          "?any_string_is_ok";
-        console.log(this.pt_bg_url);
-      }
+      var bg_num = Math.floor(Math.random() * 12 + 1); // 1-12
+      this.pt_bg_url =
+        "./img/bgs/背景" +
+        bg_num +
+        ".png";
+      console.log(this.pt_bg_url);
     },
 
 	// 自适应背景大小
@@ -647,10 +427,10 @@ var QHSJ = new Vue({
     next() {
       if (this.fullpage.current == 1) {
         // 如果当前页面编号+1 小于总个数，则可以执行向下滑动
-        this.audioplayer();
+        // this.audioplayer();
       }
 
-      if (this.inputList.user_in == "只是来凑热闹体验H5的啦") {
+      // if (this.inputList.user_in == "匿名") {
         this.len = 5; // 页面的个数
         this.warnning_top =
           (this.len - 2.6) * document.documentElement.clientHeight + "px"; //警告定位
@@ -670,7 +450,7 @@ var QHSJ = new Vue({
           (this.len - 1) * document.documentElement.clientHeight + "px";
         this.noreal_bg_top =
           (this.len - 2) * document.documentElement.clientHeight + "px";
-      }
+      // }
 
       if (this.fullpage.current + 1 <= this.len) {
         // 如果当前页面编号+1 小于总个数，则可以执行向下滑动
@@ -746,24 +526,18 @@ var QHSJ = new Vue({
       }
     },
 
-    //初始化图片大小
+    //初始化图片大小(读取图片并记录参数)
     datadragEnd(a, b) {
       for (let i = a; i <= b; i++) {
         // 创建实例对象
         let img = new Image();
         // 图片地址
 
-        if (i <= 160) {
+        
           img.src =
-            "http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%80%89%E9%A1%B9/out_82px/%E5%8F%A5" +
-            i +
-            "%402x.PNG";
-        } else {
-          img.src =
-            "http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%80%89%E9%A1%B9/%E5%8F%A5" +
-            i +
-            "%402x.png";
-        }
+            "./img/items/句" +
+            (i+160) +
+            "@2x.png";
 
         let res = {};
         var that = this;
@@ -782,18 +556,11 @@ var QHSJ = new Vue({
 
     //初始化选项列表
     gotochoose() {
-      for (let i = 1; i <= 269; i++) {
-        if (i <= 160) {
+      for (let i = 1; i <= 109; i++) {
           var choosepage =
-            "http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%80%89%E9%A1%B9/out_82px/%E5%8F%A5" +
-            i +
-            "%402x.PNG";
-        } else {
-          var choosepage =
-            "http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E9%80%89%E9%A1%B9/%E5%8F%A5" +
-            i +
-            "%402x.png";
-        }
+            "./img/items/句" +
+            (i+160) +
+            "@2x.png";
 
         var chooseitem = {
           page: choosepage,
@@ -810,429 +577,27 @@ var QHSJ = new Vue({
       //			console.log(this.ChooseLineAll)
     },
 
-    //选中选择题更改样式
-    PutChoose(item_x, index, index_x, item) {
-      var domId = "#xuanxiang_" + index + "_" + index_x;
-      //			console.log(domId)
-      var domName = document.querySelector(domId);
-      domName.style.background = "#477cab";
-      console.log(item.len);
-      for (let i = 1; i < item.len + 1; i++) {
-        if (i != index_x) {
-          let cleanId = "#xuanxiang_" + index + "_" + i;
-          let Cleanname = document.querySelector(cleanId);
-          Cleanname.style.background = "none";
-        }
-      }
-
-      item.ifchoose = 1;
-      //			console.log(item.ifchoose)
-      //判断写入什么东西
-      this.ChooseLine_zhongzhuan = [];
-
-      if (this.inputList.user_in == "三江口校区") {
-        if (item.num == 1) {
-          //判断题号 ，第一题
-          if (index_x != 4) {
-            //写入4个常规数据
-            let a = 4 * index_x; //最大值
-            let b = 4 * (index_x - 1) + 1; //最小值
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 4) {
-            this.datadragEnd(13, 15);
-            for (let x = 13; x <= 15; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 2) {
-          //，第二题
-          if (index_x != 1) {
-            //写入4个常规数据
-            let a = 14 + 4 * index_x;
-            let b = 14 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 1) {
-            this.datadragEnd(16, 18);
-            for (let x = 16; x <= 18; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 3) {
-          //，第3题
-          if (index_x == 1) {
-            this.datadragEnd(31, 34);
-            for (let x = 31; x <= 34; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 2) {
-            this.datadragEnd(35, 37);
-            for (let x = 35; x <= 37; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 3 || index_x == 4) {
-            //写入4个常规数据
-            let a = 29 + 4 * index_x;
-            let b = 29 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 5) {
-            this.datadragEnd(46, 50);
-            for (let x = 46; x <= 50; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 4) {
-          //，第4题
-          let a = 50 + 4 * index_x;
-          let b = 50 + 4 * (index_x - 1) + 1;
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            if (x == 53) {
-              x = x + 1;
-            }
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-
-        if (item.num == 5) {
-          //第5题
-          if (index_x == 1 || index_x == 2) {
-            //写入4个常规数据
-            let a = 70 + 4 * index_x;
-            let b = 70 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 3 || index_x == 4) {
-            //写入4个常规数据
-            let a = 68 + 5 * index_x;
-            let b = 68 + 5 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 6) {
-          //，第6题
-          if (index_x == 2 || index_x == 3) {
-            //写入4个常规数据
-            let a = 87 + 4 * index_x;
-            let b = 87 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 1) {
-            this.datadragEnd(89, 91);
-            for (let x = 89; x <= 91; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 4) {
-            this.datadragEnd(100, 102);
-            for (let x = 100; x <= 102; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 7) {
-          //，第7题
-          if (index_x <= 3) {
-            //写入4个常规数据
-            let a = 102 + 4 * index_x;
-            let b = 102 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 4) {
-            this.datadragEnd(115, 117);
-            for (let x = 115; x <= 117; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x >= 5) {
-            let a = 101 + 4 * index_x;
-            let b = 101 + 4 * (index_x - 1) + 1;
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 8) {
-          //，第8题
-          let a = 125 + 4 * index_x;
-          let b = 125 + 4 * (index_x - 1) + 1;
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-
-        if (item.num == 9) {
-          //第9题
-          if (index_x != 4) {
-            //写入4个常规数据
-            let a = 145 + 4 * index_x; //最大值
-            let b = 145 + 4 * (index_x - 1) + 1; //最小值
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 4) {
-            this.datadragEnd(158, 160);
-            for (let x = 158; x <= 160; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-      }
-
-      if (this.inputList.user_in == "吉祥山校区") {
-        if (item.num == 1) {
-          //判断题号 ，第一题
-          if (index_x != 4) {
-            //写入4个常规数据
-            let a = 160 + 4 * index_x; //最大值
-            let b = 160 + 4 * (index_x - 1) + 1; //最小值
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x == 4) {
-            this.datadragEnd(173, 177);
-            for (let x = 173; x <= 177; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 2) {
-          //第2题
-          let a = 177 + 4 * index_x; //最大值
-          let b = 177 + 4 * (index_x - 1) + 1; //最小值
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-
-        if (item.num == 3) {
-          //第3题
-          let a = 193 + 4 * index_x; //最大值
-          let b = 193 + 4 * (index_x - 1) + 1; //最小值
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-
-        if (item.num == 4) {
-          //第4题
-          if (index_x <= 2) {
-            //写入4个常规数据
-            let a = 209 + 3 * index_x; //最大值
-            let b = 209 + 3 * (index_x - 1) + 1; //最小值
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-          if (index_x > 2) {
-            //写入4个常规数据
-            let a = 215 + 4 * index_x; //最大值
-            let b = 215 + 4 * (index_x - 1) + 1; //最小值
-            this.datadragEnd(b, a);
-            for (let x = b; x <= a; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-              this.ChooseLine_zhongzhuan = list;
-            }
-          }
-        }
-
-        if (item.num == 5) {
-          //第5题
-          let a = 223 + 4 * index_x; //最大值
-          let b = 223 + 4 * (index_x - 1) + 1; //最小值
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-
-        if (item.num == 6) {
-          //第6题
-          let a = 243 + 4 * index_x; //最大值
-          let b = 243 + 4 * (index_x - 1) + 1; //最小值
-          this.datadragEnd(b, a);
-          for (let x = b; x <= a; x++) {
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_zhongzhuan.concat(gotolist);
-            this.ChooseLine_zhongzhuan = list;
-          }
-        }
-      }
-
-      console.log(this.ChooseLine_zhongzhuan);
-    },
-
-    GoToChooseList() {
-      if (this.AskList[this.Asknumber - 1].ifchoose == 1) {
-        let list = this.ChooseLine_chage.concat(this.ChooseLine_zhongzhuan);
-        this.ChooseLine_chage = list;
-        console.log("加入列表");
-        console.log(this.ChooseLine_chage);
-        console.log("下一题");
-
-        if (this.inputList.user_in == "吉祥山校区") {
-          if (this.Asknumber < 3) {
-            this.Asknumber = this.Asknumber + 1;
-          } else {
-            for (let x = 260; x <= 269; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_chage.concat(gotolist);
-              this.ChooseLine_chage = list;
-            }
-
-            this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5);
-            console.log("开始随机");
-            console.log(this.ChooseLine_chage);
-            console.log("随机结束");
-            this.next();
-          }
-        } else {
-          if (this.Asknumber < 3) {
-            this.Asknumber = this.Asknumber + 1;
-          } else {
-            for (let x = 260; x <= 269; x++) {
-              let gotolist = this.ChooseLineAll[x];
-              let list = this.ChooseLine_chage.concat(gotolist);
-              this.ChooseLine_chage = list;
-            }
-
-            this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5);
-            console.log("开始随机");
-            console.log(this.ChooseLine_chage);
-            console.log("随机结束");
-            this.next();
-          }
-        }
-      }
-    },
-
     GoToUser() {
       if (this.input_warnning == "立即提交" && this.inputList.name != "") {
         this.getbg();
         this.next();
 
-        if (this.inputList.user_in == "只是来凑热闹体验H5的啦") {
-          for (let x = 260; x <= 269; x++) {
-            //添加通用的
-            let gotolist = this.ChooseLineAll[x];
-            let list = this.ChooseLine_chage.concat(gotolist);
-            this.ChooseLine_chage = list;
-          }
-
-          let randomlist = this.ChooseLineAll.slice(0, 260);
-          //					console.log(randomlist)
-          randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
-          for (let a = 0; a < 18; a++) {
-            let gotolist = randomlist[a];
-            let list = this.ChooseLine_chage.concat(gotolist);
-            this.ChooseLine_chage = list;
-          }
-          this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
-        } else {
-          if (this.inputList.user_in == "吉祥山校区") {
-            this.AskList = this.AskList_JXS;
-          }
-          let randomlist = this.AskList;
-          randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
-          this.AskList = randomlist.slice(0, 4);
+        for (let x = 100; x <= 109; x++) {
+          //添加通用的
+          let gotolist = this.ChooseLineAll[x];
+          let list = this.ChooseLine_chage.concat(gotolist);
+          this.ChooseLine_chage = list;
         }
+
+        let randomlist = this.ChooseLineAll.slice(0,99);
+        //					console.log(randomlist)
+        randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
+        for (let a = 0; a < 18; a++) {
+          let gotolist = randomlist[a];
+          let list = this.ChooseLine_chage.concat(gotolist);
+          this.ChooseLine_chage = list;
+        }
+        this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
       }
     },
 
@@ -1240,32 +605,39 @@ var QHSJ = new Vue({
     Ifwarn() {
       var that = this;
 
-      if (this.inputList.user_in == "三江口校区") {
-        this.overyear = ["毕业届数"];
-        for (let i = 2026; i >= 2016; i--) {
+      if (this.inputList.user_in == "高一") {
+        this.overyear = ["班级"];
+        for (let i = 17; i >= 1; i--) {
           //获取毕业届数
-          let year = i + "届";
+          let year = i + "班";
           var newoveryear = this.overyear.concat(year);
           this.overyear = newoveryear;
         }
       }
 
-      if (this.inputList.user_in == "吉祥山校区") {
-        this.overyear = ["毕业届数"];
-        for (let i = 2026; i >= 1971; i--) {
+      if (this.inputList.user_in == "高二") {
+        this.overyear = ["班级"];
+        for (let i = 15; i >= 1; i--) {
           //获取毕业届数
-          let year = i + "届";
+          let year = i + "班";
           var newoveryear = this.overyear.concat(year);
           this.overyear = newoveryear;
         }
       }
 
-      if (this.inputList.user_in != "请选择校区") {
-        if (this.inputList.user_in != "只是来凑热闹体验H5的啦") {
-          if (this.inputList.overyear != "毕业届数") {
-            if (this.inputList.user_in == "吉祥山校区") {
-              this.AskList = this.AskList_JXS;
-            }
+      if (this.inputList.user_in == "高三") {
+        this.overyear = ["班级"];
+        for (let i = 16; i >= 1; i--) {
+          //获取毕业届数
+          let year = i + "班";
+          var newoveryear = this.overyear.concat(year);
+          this.overyear = newoveryear;
+        }
+      }
+
+      if (this.inputList.user_in != "请选择年级") {
+        if (this.inputList.user_in != "匿名") {
+          if (this.inputList.overyear != "班级") {
             if (this.inputList.name == "") {
               this.input_warnning = "请输入昵称";
             }
@@ -1273,13 +645,13 @@ var QHSJ = new Vue({
               this.input_warnning = "立即提交";
             }
           }
-          if (this.inputList.overyear == "毕业届数") {
-            this.input_warnning = "请选择毕业届数";
+          if (this.inputList.overyear == "班级") {
+            this.input_warnning = "请选择班级";
           }
         }
 
-        if (this.inputList.user_in == "只是来凑热闹体验H5的啦") {
-          this.datadragEnd(1, 259);
+        if (this.inputList.user_in == "匿名") {
+          this.datadragEnd(1, 109);
           if (this.inputList.name != "") {
             console.log(this.input_warnning);
             this.input_warnning = "立即提交";
@@ -1290,12 +662,12 @@ var QHSJ = new Vue({
         }
       }
 
-      if (this.inputList.user_in == "请选择校区") {
+      if (this.inputList.user_in == "请选择年级") {
         if (this.inputList.name == "") {
           this.input_warnning = "请填写必填项";
         }
         if (this.inputList.name != "") {
-          this.input_warnning = "请选择校区身份";
+          this.input_warnning = "请选择年级班级";
         }
       }
     },
