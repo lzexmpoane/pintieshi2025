@@ -85,7 +85,7 @@ var QHSJ = new Vue({
 
     // 背景图片的URL地址
     pt_bg_url:
-      "./img/bgs/背景1.png",
+      "./img/bgs/bg1.png",
 
     // 页面上的内容长度
     len: 6,
@@ -226,10 +226,7 @@ var QHSJ = new Vue({
 	// 随机获取背景图
     getbg() {
       var bg_num = Math.floor(Math.random() * 12 + 1); // 1-12
-      this.pt_bg_url =
-        "./img/bgs/背景" +
-        bg_num +
-        ".png";
+      this.pt_bg_url = `./img/bgs/bg${bg_num}.png`;
       console.log(this.pt_bg_url);
     },
 
@@ -534,10 +531,7 @@ var QHSJ = new Vue({
         // 图片地址
 
         
-          img.src =
-            "./img/items/句" +
-            (i+160) +
-            "@2x.png";
+          img.src = `./img/items/item${i}.png`;
 
         let res = {};
         var that = this;
@@ -557,10 +551,7 @@ var QHSJ = new Vue({
     //初始化选项列表
     gotochoose() {
       for (let i = 1; i <= 109; i++) {
-          var choosepage =
-            "./img/items/句" +
-            (i+160) +
-            "@2x.png";
+          var choosepage = `./img/items/item${i}.png`;
 
         var chooseitem = {
           page: choosepage,
