@@ -131,7 +131,7 @@ var QHSJ = new Vue({
     overyear: ["毕业届数"],
     user_in: [
       "请选择年级",
-      "匿名",
+      "不显示年级",
       "高一",
       "高二",
       "高三"
@@ -427,7 +427,7 @@ var QHSJ = new Vue({
         // this.audioplayer();
       }
 
-      // if (this.inputList.user_in == "匿名") {
+      // if (this.inputList.user_in == "不显示年级") {
         this.len = 5; // 页面的个数
         this.warnning_top =
           (this.len - 2.6) * document.documentElement.clientHeight + "px"; //警告定位
@@ -627,7 +627,7 @@ var QHSJ = new Vue({
       }
 
       if (this.inputList.user_in != "请选择年级") {
-        if (this.inputList.user_in != "匿名") {
+        if (this.inputList.user_in != "不显示年级") {
           if (this.inputList.overyear != "班级") {
             if (this.inputList.name == "") {
               this.input_warnning = "请输入昵称";
@@ -641,7 +641,7 @@ var QHSJ = new Vue({
           }
         }
 
-        if (this.inputList.user_in == "匿名") {
+        if (this.inputList.user_in == "不显示年级") {
           this.datadragEnd(1, 109);
           if (this.inputList.name != "") {
             console.log(this.input_warnning);
