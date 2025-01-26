@@ -10,7 +10,7 @@ var QHSJ = new Vue({
     join_src:
       "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
     erweima_src:
-      "http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BA%8C%E7%BB%B4%E7%A0%81.png",
+      "./img/title/qrcode.png",
 
     // 用户选择的拼贴诗表，保存每一行选择的情况
     ChooseLine: [
@@ -123,14 +123,13 @@ var QHSJ = new Vue({
     inputList: {
       name: "", // 用户的名字
       place: "", // 用户的地点
-      overyear: "班级", // 毕业届数
+      overyear: "请选择班级", // 毕业届数
       user_in: "请选择年级", // 校区选择
     },
 
     // 毕业届数和校区选项列表
-    overyear: ["毕业届数"],
+    overyear: ["不显示班级"],
     user_in: [
-      "请选择年级",
       "不显示年级",
       "高一",
       "高二",
@@ -140,8 +139,6 @@ var QHSJ = new Vue({
     school: "", // 校区
     input_warnning: "请填写必填项", // 输入提示
     input_warnning_show: false, // 输入提示是否显示
-
-    Asknumber: 1,
   },
 
   // 挂载时加载必要数据
@@ -165,7 +162,7 @@ var QHSJ = new Vue({
     //
 
     this.gotochoose();
-    this.datadragEnd(100, 109);
+    this.datadragEnd(1, 109);
     //		console.log(this.ChooseLine_chage)
   },
 
@@ -181,7 +178,7 @@ var QHSJ = new Vue({
   },
 
   // 检测音频是否正常播放
-  methods: {/*
+  methods: {
     audioplayer() {
       //					console.log("play")
       var audio = document.getElementById("audios");
@@ -221,7 +218,71 @@ var QHSJ = new Vue({
           audioAutoPlay(audio);
         }
       }, 2000);
-    },*/
+    },
+
+    // 表单检查与届数生成
+    Ifwarn() {
+      var that = this;
+
+      this.overyear = ["不显示班级"];
+      if (this.inputList.user_in == "高一") {
+        for (let i = 17; i >= 1; i--) {
+          //获取毕业届数
+          let year = i + "班";
+          var newoveryear = this.overyear.concat(year);
+          this.overyear = newoveryear;
+        }
+      }
+
+      if (this.inputList.user_in == "高二") {
+        for (let i = 15; i >= 1; i--) {
+          //获取毕业届数
+          let year = i + "班";
+          var newoveryear = this.overyear.concat(year);
+          this.overyear = newoveryear;
+        }
+      }
+
+      if (this.inputList.user_in == "高三") {
+        for (let i = 16; i >= 1; i--) {
+          //获取毕业届数
+          let year = i + "班";
+          var newoveryear = this.overyear.concat(year);
+          this.overyear = newoveryear;
+        }
+      }
+
+      if (this.inputList.user_in != "请选择年级") {
+        if (this.inputList.user_in != "不显示年级") {
+          if (this.inputList.overyear != "班级") {
+            if (this.inputList.name == "") {
+              this.input_warnning = "请输入昵称";
+            }
+            if (this.inputList.name != "") {
+              this.input_warnning = "立即提交";
+            }
+          }else{
+            this.input_warnning = "请选择班级";
+          }
+        }else{
+          if (this.inputList.name != "") {
+            console.log(this.input_warnning);
+            this.input_warnning = "立即提交";
+          }else{
+            this.input_warnning = "请输入昵称";
+          }
+        }
+      }
+
+      if (this.inputList.user_in == "请选择年级") {
+        if (this.inputList.name == "") {
+          this.input_warnning = "请填写必填项";
+        }
+        if (this.inputList.name != "") {
+          this.input_warnning = "请选择年级班级";
+        }
+      }
+    },
 
 	// 随机获取背景图
     getbg() {
@@ -424,7 +485,7 @@ var QHSJ = new Vue({
     next() {
       if (this.fullpage.current == 1) {
         // 如果当前页面编号+1 小于总个数，则可以执行向下滑动
-        // this.audioplayer();
+        this.audioplayer();
       }
 
       // if (this.inputList.user_in == "不显示年级") {
@@ -589,77 +650,6 @@ var QHSJ = new Vue({
           this.ChooseLine_chage = list;
         }
         this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
-      }
-    },
-
-	// 表单检查与届数生成
-    Ifwarn() {
-      var that = this;
-
-      if (this.inputList.user_in == "高一") {
-        this.overyear = ["班级"];
-        for (let i = 17; i >= 1; i--) {
-          //获取毕业届数
-          let year = i + "班";
-          var newoveryear = this.overyear.concat(year);
-          this.overyear = newoveryear;
-        }
-      }
-
-      if (this.inputList.user_in == "高二") {
-        this.overyear = ["班级"];
-        for (let i = 15; i >= 1; i--) {
-          //获取毕业届数
-          let year = i + "班";
-          var newoveryear = this.overyear.concat(year);
-          this.overyear = newoveryear;
-        }
-      }
-
-      if (this.inputList.user_in == "高三") {
-        this.overyear = ["班级"];
-        for (let i = 16; i >= 1; i--) {
-          //获取毕业届数
-          let year = i + "班";
-          var newoveryear = this.overyear.concat(year);
-          this.overyear = newoveryear;
-        }
-      }
-
-      if (this.inputList.user_in != "请选择年级") {
-        if (this.inputList.user_in != "不显示年级") {
-          if (this.inputList.overyear != "班级") {
-            if (this.inputList.name == "") {
-              this.input_warnning = "请输入昵称";
-            }
-            if (this.inputList.name != "") {
-              this.input_warnning = "立即提交";
-            }
-          }
-          if (this.inputList.overyear == "班级") {
-            this.input_warnning = "请选择班级";
-          }
-        }
-
-        if (this.inputList.user_in == "不显示年级") {
-          this.datadragEnd(1, 109);
-          if (this.inputList.name != "") {
-            console.log(this.input_warnning);
-            this.input_warnning = "立即提交";
-          }
-          if (this.inputList.name == "") {
-            this.input_warnning = "请输入昵称";
-          }
-        }
-      }
-
-      if (this.inputList.user_in == "请选择年级") {
-        if (this.inputList.name == "") {
-          this.input_warnning = "请填写必填项";
-        }
-        if (this.inputList.name != "") {
-          this.input_warnning = "请选择年级班级";
-        }
       }
     },
   },

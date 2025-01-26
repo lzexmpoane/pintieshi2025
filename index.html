@@ -20,11 +20,10 @@
 
     <div id="QHSJ" :style="{ height: windowHeight}" ref="fullPage" v-cloak>
       <div class="fullPageContainer" ref="fullPageContainer">
-
         <!--			第一页-->
         <div class="p_one" :style="{width:windowWidth,height:windowHeight} ">
           <audio
-            src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/bgm.MP3"
+            src="./audio/BGM.mp3"
             type="audio/mpeg"
             id="audios"
             loop
@@ -34,17 +33,17 @@
      				 <source src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/bgm.MP3" type="audio/mpeg"/>
 				</audio>
 -->
-		<!-- 170标志 -->
+          <!-- 170标志 -->
           <img
             src="./img/title/author.png"
             style="margin-top: 30px; width: 163px"
           />
-		<!-- 标题 -->
+          <!-- 标题 -->
           <img
             src="./img/title/title.png"
             style="margin-top: 25%; width: 75%"
           />
-		<!-- 按钮 -->
+          <!-- 按钮 -->
           <img
             src="./img/ui/start.png"
             @click="next()"
@@ -57,55 +56,54 @@
           <div class="userbox">
             <div class="boxlist">
               <div class="usertitle">基本信息填写</div>
-              <div class="userthing" style="margin-top: 40px">
-                <div class="userleft">
-                  <span style="color: red">*</span>
-                  <span>年级与班级</span>
+              <div style="margin-top: 40px">
+                <div class="userthing">
+                  <div class="userleft">
+                    <span style="color: red">*</span>
+                    <span>年级</span>
+                  </div>
+                  <div>
+                    <select
+                      class="userbutton"
+                      style="width: 195px"
+                      v-model="inputList.user_in"
+                    >
+                    <option selected disabled hidden>请选择年级</option>
+                      <option v-for="(item,index) in user_in">{{item}}</option>
+                    </select>
+                  </div>
                 </div>
-                <div>
-                  <select
+                <div class="userthing">
+                  <div class="userleft">
+                    <span style="color: red">*</span>
+                    <span>班级</span>
+                  </div>
+                  <div>
+                    <select
+                      class="userbutton"
+                      style="width: 195px"
+                      v-model="inputList.overyear"
+                    >
+                      <option selected disabled hidden>请选择班级</option>
+                      <option v-for="(item,index) in overyear">{{item}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="userthing">
+                  <div class="userleft">
+                    <span style="color: red">*</span>
+                    姓名/昵称
+                  </div>
+                  <input
+                    maxlength="10"
                     class="userbutton"
-                    :style="{width:inputList.user_in =='高一' || inputList.user_in =='高二' || inputList.user_in =='高三' ? '105px' :'195px'}"
-                    v-model="inputList.user_in"
-                  >
-                    <option v-for="(item,index) in user_in">{{item}}</option>
-                  </select>
-                  <select
-                    class="userbutton"
-                    style="width: 85px"
-                    v-model="inputList.overyear"
-                    v-show="inputList.user_in =='高一' || inputList.user_in =='高二' || inputList.user_in =='高三'"
-                  >
-                    <option v-for="(item,index) in overyear">{{item}}</option>
-                  </select>
+                    type="text"
+                    placeholder="请输入姓名"
+                    v-model="inputList.name"
+                  />
                 </div>
               </div>
-
-              <div class="userthing">
-                <div class="userleft">
-                  <span style="color: red">*</span>
-                  姓名/昵称
-                </div>
-                <input
-                  maxlength="10"
-                  class="userbutton"
-                  type="text"
-                  placeholder="请输入姓名"
-                  v-model="inputList.name"
-                />
-              </div>
-
-              <div class="userthing">
-                <div class="userleft">现在的位置</div>
-                <input
-                  maxlength="10"
-                  class="userbutton"
-                  type="text"
-                  placeholder="请输入地址"
-                  v-model="inputList.place"
-                />
-              </div>
-
               <div
                 class="into"
                 @click="GoToUser()"
@@ -117,21 +115,15 @@
             </div>
           </div>
           <div style="text-align: center; width: 100%">
-            <img
-              src="./img/title/author.png"
-            />
+            <img style="width: 163px" src="./img/title/author.png" />
           </div>
         </div>
 
-        
         <!--			第4页-->
         <div class="p_four" :style="{width:windowWidth,height:windowHeight}">
           <div class="banner">福州八中学生会特别企划</div>
           <div class="logo_title">
-            <img
-              src="./img/title/title_long.png"
-              style="width: 77%"
-            />
+            <img src="./img/title/title_long.png" style="width: 77%" />
           </div>
           <div class="imgbox">
             <div
@@ -159,23 +151,17 @@
           <div :style="{top:choose_botton_top}" style="position: fixed">
             <div class="choose_botton">
               <div class="shang" @click="uplist()">
-                <img
-                  src="./img/ui/up.png"
-                />
+                <img src="./img/ui/up.png" />
               </div>
               <div class="xia" @click="downlist()">
-                <img
-                  src="./img/ui/down.png"
-                />
+                <img src="./img/ui/down.png" />
               </div>
               <div class="clean" @click="clean()">
-                <img
-                  src="./img/ui/clear.png"
-                />
+                <img src="./img/ui/clear.png" />
               </div>
             </div>
 
-            <div style="margin-left: 25px; margin-top: 20px" @click="doimg()">
+            <div style="margin-left: 25px; margin-top: 0" @click="doimg()">
               <img
                 src="./img/ui/build.png"
                 style="max-width: 326px"
@@ -184,10 +170,10 @@
             </div>
           </div>
           <div class="shupai" :style="{top:shupai_top}">
-            这些内容情怀三江往期推送
+            词块由学生会生活部提供
           </div>
           <span class="full" :style="{top:warnning_top}" v-show="Iffull==1"
-            >版面有限，只能选择6句哦</span
+            >版面有限,请换行</span
           >
         </div>
 
@@ -206,10 +192,7 @@
           >
             <div class="banner">福州八中学生会特别企划</div>
             <div class="titleimg">
-              <img
-                src="./img/title/title_long.png"
-                style="width: 77%"
-              />
+              <img src="./img/title/title_long.png" style="width: 77%" />
             </div>
 
             <div class="book">
@@ -263,11 +246,11 @@
               >
                 <div class="book_test">
                   by {{inputList.name}}
-                  <span v-show="inputList.overyear != '毕业届数' "
-                    >({{inputList.overyear}})</span
+                  <span v-show="inputList.overyear != '不显示年级' "
+                    >({{inputList.user_in}}{{inputList.overyear}})</span
                   >
                 </div>
-                <div
+                <!-- <div
                   class="book_test"
                   v-show="inputList.place!=''"
                   style="
@@ -281,7 +264,7 @@
                     style="height: 15px; margin-right: 5px"
                   />
                   {{inputList.place}}
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -292,17 +275,11 @@
           >
             <div class="under">
               <div class="again" v-show="Screenimg ==''" @click="pre()">
-                <img
-                  src="./img/ui/restart.png"
-                  style="width: 100px"
-                />
+                <img src="./img/ui/restart.png" style="width: 100px" />
               </div>
               <!--						<div class="save" v-show="Screenimg ==''" @click="handleScreenshot()"><img src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png" style="width: 100px"></div>-->
               <div class="save" v-show="botton_show==0" @click="next()">
-                <img
-                  src="./img/ui/over.png"
-                  style="width: 100px"
-                />
+                <img src="./img/ui/over.png" style="width: 100px" />
               </div>
               <div class="again" v-show="Screenimg !=''">
                 <img
@@ -311,10 +288,7 @@
                 />
               </div>
               <div class="erweima">
-                <img
-                  :src="erweima_src"
-                  style="width: 80px"
-                />
+                <img :src="erweima_src" style="width: 80px" />
               </div>
             </div>
           </div>
