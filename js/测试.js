@@ -10,7 +10,7 @@ var QHSJ = new Vue({
     join_src:
       "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
     erweima_src:
-      "./img/title/qrcode.png",
+      "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
 
     // 用户选择的拼贴诗表，保存每一行选择的情况
     ChooseLine: [
