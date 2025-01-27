@@ -30,17 +30,17 @@ var QHSJ = new Vue({
     screenHeight: document.body.clientHeight, // 屏幕高度
 
     // 页面元素定位的动态计算（例如警告框和截图的位置）
-    warnning_top: 3.4 * document.documentElement.clientHeight + "px", // 警告定位
-    Screenimg_top: 4 * document.documentElement.clientHeight + "px", // 输出截图定位
+    warnning_top: 2.4 * document.documentElement.clientHeight + "px", // 警告定位
+    Screenimg_top: 3 * document.documentElement.clientHeight + "px", // 输出截图定位
     windowHeight: document.documentElement.clientHeight + "px", // 窗口高度
     windowWidth: document.documentElement.clientWidth + "px", // 窗口宽度
-    choose_botton_top: 3.8 * document.documentElement.clientHeight + "px", // 选择按钮位置
-    shupai_top: 3.25 * document.documentElement.clientHeight + "px", // 树牌位置
-    under_top: 5 * document.documentElement.clientHeight - 100 + "px", // 下部元素位置
-    under_top_real: 6 * document.documentElement.clientHeight - 100 + "px", // 真实的下部元素位置
-    save_top: 5 * document.documentElement.clientHeight - 50 + "px", // 保存按钮位置
-    real_bg_top: 5 * document.documentElement.clientHeight + "px", // 真实背景位置
-    noreal_bg_top: 4 * document.documentElement.clientHeight + "px", // 非真实背景位置
+    choose_botton_top: 2.8 * document.documentElement.clientHeight + "px", // 选择按钮位置
+    shupai_top: 2.25 * document.documentElement.clientHeight + "px", // 树牌位置
+    under_top: 4 * document.documentElement.clientHeight - 100 + "px", // 下部元素位置
+    under_top_real: 5 * document.documentElement.clientHeight - 100 + "px", // 真实的下部元素位置
+    save_top: 4 * document.documentElement.clientHeight - 50 + "px", // 保存按钮位置
+    real_bg_top: 4 * document.documentElement.clientHeight + "px", // 真实背景位置
+    noreal_bg_top: 3 * document.documentElement.clientHeight + "px", // 非真实背景位置
 
     // 用于全屏功能控制
     fullpage: {
@@ -436,25 +436,25 @@ var QHSJ = new Vue({
       }
 
       // if (this.inputList.user_in == "不显示年级") {
-        this.len = 5; // 页面的个数
-        this.warnning_top =
-          (this.len - 2.6) * document.documentElement.clientHeight + "px"; //警告定位
-        this.Screenimg_top =
-          (this.len - 2) * document.documentElement.clientHeight + "px"; //输出截图定位
-        this.choose_botton_top =
-          (this.len - 2.2) * document.documentElement.clientHeight + "px";
-        this.under_top =
-          (this.len - 1) * document.documentElement.clientHeight - 100 + "px";
-        this.under_top_real =
-          this.len * document.documentElement.clientHeight - 100 + "px";
-        this.shupai_top =
-          (this.len - 2.75) * document.documentElement.clientHeight + "px";
-        this.save_top =
-          (this.len - 1) * document.documentElement.clientHeight - 50 + "px";
-        this.real_bg_top =
-          (this.len - 1) * document.documentElement.clientHeight + "px";
-        this.noreal_bg_top =
-          (this.len - 2) * document.documentElement.clientHeight + "px";
+        // this.len = 5; // 页面的个数
+        // this.warnning_top =
+        //   (this.len - 2.6) * document.documentElement.clientHeight + "px"; //警告定位
+        // this.Screenimg_top =
+        //   (this.len - 2) * document.documentElement.clientHeight + "px"; //输出截图定位
+        // this.choose_botton_top =
+        //   (this.len - 2.2) * document.documentElement.clientHeight + "px";
+        // this.under_top =
+        //   (this.len - 1) * document.documentElement.clientHeight - 100 + "px";
+        // this.under_top_real =
+        //   this.len * document.documentElement.clientHeight - 100 + "px";
+        // this.shupai_top =
+        //   (this.len - 2.75) * document.documentElement.clientHeight + "px";
+        // this.save_top =
+        //   (this.len - 1) * document.documentElement.clientHeight - 50 + "px";
+        // this.real_bg_top =
+        //   (this.len - 1) * document.documentElement.clientHeight + "px";
+        // this.noreal_bg_top =
+        //   (this.len - 2) * document.documentElement.clientHeight + "px";
       // }
 
       if (this.fullpage.current + 1 <= this.len) {
