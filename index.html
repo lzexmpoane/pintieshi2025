@@ -12,6 +12,12 @@
     <meta name="format-detection" content="telephone=no" />
     <title>拾零成诗</title>
     <link href="css/测试.css" rel="stylesheet" type="text/css" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <!-- <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <!-- <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script> -->
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <!-- <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   </head>
 
   <body>
@@ -68,7 +74,7 @@
                       style="width: 195px"
                       v-model="inputList.user_in"
                     >
-                    <option selected disabled hidden>请选择年级</option>
+                      <option selected disabled hidden>请选择年级</option>
                       <option v-for="(item,index) in user_in">{{item}}</option>
                     </select>
                   </div>
@@ -120,54 +126,76 @@
         </div>
 
         <!--			第4页-->
-        <div class="p_four" :style="{width:windowWidth,height:windowHeight}">
+        <div class="p_four" :style="chooseBgStyle">
           <div class="banner">福州八中学生会特别企划</div>
           <div class="logo_title">
             <img src="./img/title/title_long.png" style="width: 77%" />
           </div>
           <div class="imgbox">
             <div
-              class="list_test"
-              v-for="(item,index) in ChooseLine_chage"
-              @click="choose(item,index)"
-              v-show="index+1>(ChooseLineList-1)*8  && index+1 <= ChooseLineList*8 "
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                align-content: space-between;
+                margin: 0px 35px 0 20px;
+              "
             >
-              <div class="circle" v-show="item.Ifchoose!=0">
-                {{item.ChooseNum}}
-              </div>
+              <template v-for="(line, l_index) in chooseList[choosePage]">
+                <div
+                  v-for="(item, index) in line"
+                  class="item"
+                  :style="item.style"
+                  @click="choose(item, choosePage, l_index, index)"
+                >
+                  <div
+                    class="circle"
+                    v-if="poemList[currentLine].items.lastIndexOf(item) !== -1"
+                  >
+                    {{poemList[currentLine].items.lastIndexOf(item) + 1}}
+                  </div>
 
-              <div>
-                <!--						{{item.page}}-->
-                <img
-                  :src="item.page"
-                  class="choosen_img"
-                  :style="{width:item.img_width}"
-                />
-                <!--						<img :src="ChooseLine[0].page" :style="{width:qqq}">-->
-              </div>
+                  <div class="str">{{item.str}}</div>
+                </div>
+              </template>
             </div>
           </div>
 
           <div :style="{top:choose_botton_top}" style="position: fixed">
             <div class="choose_botton">
               <div class="shang" @click="uplist()">
-                <img src="./img/ui/up.png" />
+                <img
+                  src="./img/ui/up.png"
+                  :style="{opacity:choosePage !== 0 ? '1' :'0.7'}"
+                />
               </div>
               <div class="xia" @click="downlist()">
-                <img src="./img/ui/down.png" />
+                <img
+                  src="./img/ui/down.png"
+                  :style="{opacity:choosePage !== chooseList.length-1 ? '1' :'0.7'}"
+                />
+              </div>
+              <div class="line" style="position: relative">
+                <img src="./img/ui/btnbg.png" />
+                <select v-model="currentLine">
+                  <option v-for="i in 8" :value="i-1">第{{i}}行</option>
+                </select>
               </div>
               <div class="clean" @click="clean()">
-                <img src="./img/ui/clear.png" />
+                <img
+                  src="./img/ui/clear.png"
+                  :style="{opacity:poemList[currentLine].len !== 0 ? '1' :'0.7'}"
+                />
               </div>
             </div>
 
-            <div style="margin-left: 25px; margin-top: 0" @click="doimg()">
+            <div style="margin-left: 25px; margin-top: 2px" @click="doimg()">
               <img
                 src="./img/ui/build.png"
                 style="max-width: 326px"
-                :style="{opacity:Choosing_num>=4 ? '1' :'0.7'}"
+                :style="{opacity:isPoemed ? '1' :'0.7'}"
               />
             </div>
+            <div class="advice">一行最多八个字，最多八行</div>
           </div>
           <div class="shupai" :style="{top:shupai_top}">
             词块由学生会生活部提供
@@ -196,58 +224,28 @@
             </div>
 
             <div class="book">
-              <div class="b1 bookpos">
-                <span v-show="Choosing_show>0">
-                  <img
-                    :src="Choosing[1]"
-                    :style="{width:Choosing_width[1].img_width}"
-                  />
-                </span>
+              <div
+                class="bookpos"
+                style="display: flex"
+                v-for="line in poemList"
+              >
+                <div
+                  v-for="(item, index) in line.items"
+                  class="item"
+                  :style="item.style"
+                >
+                  <div class="str">{{item.str}}</div>
+                </div>
               </div>
-              <div class="b2 bookpos">
-                <span v-show="Choosing_show>1"
-                  ><img
-                    :src="Choosing[2]"
-                    :style="{width:Choosing_width[2].img_width}"
-                /></span>
-              </div>
-              <div class="b3 bookpos">
-                <span v-show="Choosing_show>2"
-                  ><img
-                    :src="Choosing[3]"
-                    :style="{width:Choosing_width[3].img_width}"
-                /></span>
-              </div>
-              <div class="b4 bookpos">
-                <span v-show="Choosing_show>3"
-                  ><img
-                    :src="Choosing[4]"
-                    :style="{width:Choosing_width[4].img_width}"
-                /></span>
-              </div>
-              <div class="b5 bookpos">
-                <span v-show="Choosing_show>4"
-                  ><img
-                    :src="Choosing[5]"
-                    :style="{width:Choosing_width[5].img_width}"
-                /></span>
-              </div>
-              <div class="b6 bookpos">
-                <span v-show="Choosing_show>5"
-                  ><img
-                    :src="Choosing[6]"
-                    :style="{width:Choosing_width[6].img_width}"
-                /></span>
-              </div>
-
               <div
                 class="bookpos"
                 style="text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.62)"
               >
                 <div class="book_test">
                   by {{inputList.name}}
-                  <span v-show="inputList.overyear != '不显示年级' "
-                    >({{inputList.user_in}}{{inputList.overyear}})</span
+                  <span v-show="inputList.user_in != '不显示年级' "
+                    >({{inputList.user_in}}{{inputList.overyear != '不显示班级'?
+                    inputList.overyear: ''}})</span
                   >
                 </div>
                 <!-- <div
@@ -274,21 +272,15 @@
             :style="{top:under_top}"
           >
             <div class="under">
-              <div class="again" v-show="Screenimg ==''" @click="pre()">
+              <div class="again" v-show="botton_show==0" @click="pre()">
                 <img src="./img/ui/restart.png" style="width: 100px" />
               </div>
               <!--						<div class="save" v-show="Screenimg ==''" @click="handleScreenshot()"><img src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png" style="width: 100px"></div>-->
-              <div class="save" v-show="botton_show==0" @click="next()">
+              <div class="save" v-show="botton_show==0" @click="handleScreenshot()">
                 <img src="./img/ui/over.png" style="width: 100px" />
               </div>
-              <div class="again" v-show="Screenimg !=''">
-                <img
-                  src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png"
-                  style="width: 100%"
-                />
-              </div>
-              <div class="erweima">
-                <img :src="erweima_src" style="width: 80px" />
+              <div class="change" v-show="botton_show==0" @click="getbg()">
+                <img src="./img/ui/change.png" style="width: 100px" />
               </div>
             </div>
           </div>
@@ -296,7 +288,7 @@
           <div
             class="save_warn"
             :style="{top:save_top}"
-            v-show="Screenimg !=''"
+            v-show="Screenimg != ''"
           >
             『长按』可将海报保存至相册
           </div>
@@ -311,122 +303,46 @@
 
         <!--		实际的截图页面-->
         <div ref="faultTree">
-          <div class="pt_bg" :style="{height:windowHeight }">
-            <!--				<div class="pt_bg" ref="faultTree" :style="{height:windowHeight }" >-->
-            <img
-              crossorigin="anonymous"
-              :src="pt_bg_url"
-              :style="{height:windowHeight,top:real_bg_top}"
-              class="real_bg"
-              id="real_bg"
-            />
-            <div style="padding: 0 4%; height: 100%">
-              <div class="banner">福州八中学生会特别企划</div>
-              <div class="titleimg">
-                <img
-                  src="./img/title/title_long.png"
-                  style="width: 77%"
-                  crossorigin="anonymous"
-                />
-              </div>
+          <img
+            crossorigin="anonymous"
+            :src="pt_bg_url"
+            :style="{height:windowHeight,top:real_bg_top}"
+            class="real_bg"
+          />
+          <div
+            class="pt_bg"
+            style="padding: 0 4%"
+            :style="{height:windowHeight }"
+          >
+            <div class="banner">福州八中学生会特别企划</div>
+            <div class="titleimg">
+              <img src="./img/title/title_long.png" style="width: 77%" />
+            </div>
 
-              <div class="book">
-                <!--					<div class="b1 bookpos"><span  v-show="Choosing_show>0"> <img :src="Choosing[1]+'?any_string_is_ok'" :style="{width:Choosing_width[1].img_width}" crossorigin="anonymous"> </span></div>-->
-                <div class="b1 bookpos" v-show="Choosing_show>0">
-                  <!--							<div :style="{width:Choosing_width[1].img_width, height:Choosing_width[1].img_height , backgroundImage: 'url('+ Choosing[1] +')'}" style="    background-size: contain;"></div>-->
-                  <img
-                    :src="Choosing[1]"
-                    :style="{width:Choosing_width[1].img_width}"
-                  />
-                </div>
-                <div class="b2 bookpos">
-                  <span v-show="Choosing_show>1"
-                    ><img
-                      :src="Choosing[2]"
-                      :style="{width:Choosing_width[2].img_width}"
-                      crossorigin="anonymous"
-                  /></span>
-                </div>
-                <div class="b3 bookpos">
-                  <span v-show="Choosing_show>2"
-                    ><img
-                      :src="Choosing[3]"
-                      :style="{width:Choosing_width[3].img_width}"
-                      crossorigin="anonymous"
-                  /></span>
-                </div>
-                <div class="b4 bookpos">
-                  <span v-show="Choosing_show>3"
-                    ><img
-                      :src="Choosing[4]"
-                      :style="{width:Choosing_width[4].img_width}"
-                      crossorigin="anonymous"
-                  /></span>
-                </div>
-                <div class="b5 bookpos">
-                  <span v-show="Choosing_show>4"
-                    ><img
-                      :src="Choosing[5]"
-                      :style="{width:Choosing_width[5].img_width}"
-                      crossorigin="anonymous"
-                  /></span>
-                </div>
-                <div class="b6 bookpos">
-                  <span v-show="Choosing_show>5"
-                    ><img
-                      :src="Choosing[6]"
-                      :style="{width:Choosing_width[6].img_width}"
-                      crossorigin="anonymous"
-                  /></span>
-                </div>
-
-                <div
-                  class="bookpos"
-                  style="text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.62)"
-                >
-                  <div class="book_test">
-                    by {{inputList.name}}
-                    <span v-show="inputList.overyear != '毕业届数' "
-                      >({{inputList.overyear}})</span
-                    >
-                  </div>
-                  <div
-                    class="book_test"
-                    v-show="inputList.place!=''"
-                    style="
-                      display: flex;
-                      justify-content: end;
-                      align-items: center;
-                    "
-                  >
-                    <img
-                      src="http://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/icon.png"
-                      style="height: 15px; margin-right: 5px"
-                    />
-                    {{inputList.place}}
-                  </div>
-                </div>
-              </div>
-
+            <div class="book">
               <div
-                style="position: fixed; left: 0px; right: 0px"
-                :style="{top:under_top_real}"
+                class="bookpos"
+                style="display: flex"
+                v-for="line in poemList"
               >
-                <div class="under">
-                  <div class="again">
-                    <img
-                      :src="join_src"
-                      style="width: 100%"
-                      crossorigin="anonymous"
-                    />
-                  </div>
-                  <div class="erweima">
-                    <img
-                      :src="erweima_src"
-                      style="width: 80px"
-                      crossorigin="anonymous"
-                    />
-                  </div>
+                <div
+                  v-for="(item, index) in line.items"
+                  class="item"
+                  :style="item.style"
+                >
+                  <div class="str">{{item.str}}</div>
+                </div>
+              </div>
+              <div
+                class="bookpos"
+                style="text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.62)"
+              >
+                <div class="book_test">
+                  by {{inputList.name}}
+                  <span v-show="inputList.user_in != '不显示年级' "
+                    >({{inputList.user_in}}{{inputList.overyear != '不显示班级'?
+                    inputList.overyear: ''}})</span
+                  >
                 </div>
               </div>
             </div>

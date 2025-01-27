@@ -13,35 +13,35 @@ var QHSJ = new Vue({
       "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
 
     // 用户选择的拼贴诗表，保存每一行选择的情况
-    ChooseLine: [
-      {
-        page: "",
-        img: "1",
-        Ifchoose: 0,
-        ChooseNum: 0,
-        img_width: 1,
-        img_height: 1,
-      },
-      { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "1", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-      { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-    ],
+    // ChooseLine: [
+    //   {
+    //     page: "",
+    //     img: "1",
+    //     Ifchoose: 0,
+    //     ChooseNum: 0,
+    //     img_width: 1,
+    //     img_height: 1,
+    //   },
+    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "1", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
+    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
+    // ],
 
     // 中转的选择行列表
-    ChooseLine_zhongzhuan: [],
+    // ChooseLine_zhongzhuan: [],
 
     // 变化后的实际选择列表
-    ChooseLine_chage: [],
-    ChooseLineAll: [{}],
+    // ChooseLine_chage: [],
+    // ChooseLineAll: [{}],
 
     // 选择行列表的初始值
-    ChooseLineList: 1,
+    choosePage: 0,
     qqq: 1,
 
     // 四个图片选择项（1-4）
@@ -88,7 +88,7 @@ var QHSJ = new Vue({
       "./img/bgs/bg1.png",
 
     // 页面上的内容长度
-    len: 6,
+    len: 5,
 
     // 屏幕的宽度和高度
     screenWidth: document.body.clientWidth, // 屏幕宽度
@@ -141,6 +141,24 @@ var QHSJ = new Vue({
     input_warnning_show: false, // 输入提示是否显示
 
     chooseList: [],
+    chooseBgsList: [],
+    chooseBgStyle: {
+      width: this.windowWidth, 
+      height: this.windowHeight,
+      "background-image": `url(./img/choosebgs/bg1.jpg)`,
+    },
+    poemList: [
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0},
+      {items:[], len: 0}
+    ],
+    currentLine: 0,
+    isPoemed: false,
   },
 
   // 挂载时加载必要数据
@@ -163,8 +181,8 @@ var QHSJ = new Vue({
     //		};
     //
 
-    this.gotochoose();
-    this.datadragEnd(1, 109);
+    // this.gotochoose();
+    // this.datadragEnd(1, 109);
     this.createStrList();
     //		console.log(this.ChooseLine_chage)
   },
@@ -178,12 +196,43 @@ var QHSJ = new Vue({
     if (this.fullpage.current == 3) {
       //			this.transformBg()
     }
+
+    if (this.fullpage.current == 3) {
+      this.isPoemed = !!(this.poemList.reduce((prev, curr)=>(isNaN(prev) ? prev.len+curr.len: prev+curr.len)))
+      this.chooseBgStyle = {
+        width: this.windowWidth, 
+        height: this.windowHeight,
+        "background-image": `url(./img/choosebgs/bg${this.chooseBgsList[this.choosePage]+1}.jpg)`,
+      }
+    }
   },
 
   // 检测音频是否正常播放
   methods: {
-    chooseTable(){
-
+    choose(item, page, line, index){
+      if (this.poemList[this.currentLine].len + item.len > 8){
+        // 弹窗提醒
+        if ((this.Iffull = false)) {
+          this.Iffull = true;
+        }
+        if ((this.Iffull = true)) {
+          setTimeout(() => {
+            this.Iffull = false;
+          }, 2000);
+        }
+        return;
+      }
+      
+      this.chooseList[page][line][index].chosen.push(this.poemList[this.currentLine].items.length)
+      
+      /**
+       * poemList
+       * @param items List
+       * @param len Number
+       */
+      this.poemList[this.currentLine].len += item.len;
+      this.poemList[this.currentLine].items.push(item);
+      console.log(this.poemList);
     },
 
     createStrList(){
@@ -199,28 +248,50 @@ var QHSJ = new Vue({
             pageTempList.push(rowTempList)
             rowLen = 0;
             rowTempList = [];
-
+            // console.log("row",rowTempList);
             colLen++;
-            if (colLen > 8){
+            if (colLen >= 8){
               tempList.push(pageTempList);
+              this.chooseBgsList.push(p);
               // console.log(pageTempList)
               pageTempList = [];
               colLen = 0;
             }
+            i--;
             continue;
           }
-          rowTempList.push(item[p][i].str)
+
+          const itembg = Math.floor(Math.random()*3+1);
+          item[p][i].style = {};
+          // item[p][i].class[`col-xs-${item[p][i].len}`] = true;
+          // item[p][i].class[`col-sm-${item[p][i].len}`] = true;
+          // item[p][i].class[`col-md-${item[p][i].len}`] = true;
+          // item[p][i].class[`col-lg-${item[p][i].len}`] = true;
+          item[p][i].style["width"] = item[p][i].len*10 + '%';
+          item[p][i].style["background-image"] = `url(./img/itembg/b${item[p][i].len}_${itembg}.png)`;
+          item[p][i].chosen = [];
+
+          /**
+           * item 
+           * @param str String
+           * @param len Number
+           * @param class Dict
+           * @param style Dict
+           * @param chosen List
+           */
+          rowTempList.push(item[p][i])
         }
         pageTempList.push(rowTempList);
         rowTempList = []
         rowLen = 0;
 
         tempList.push(pageTempList);
+        this.chooseBgsList.push(p);
         pageTempList = [];
         colLen = 0;
       }
 
-      console.log(tempList)
+      console.log(tempList) // page line item 三层
 
       this.chooseList = tempList;
     },
@@ -332,8 +403,8 @@ var QHSJ = new Vue({
 
 	// 随机获取背景图
     getbg() {
-      var bg_num = Math.floor(Math.random() * 12 + 1); // 1-12
-      this.pt_bg_url = `./img/bgs/bg${bg_num}.png`;
+      var bg_num = Math.floor(Math.random() * 14 + 1); // 1-12
+      this.pt_bg_url = `./img/bgs/bg${bg_num}.jpg`;
       console.log(this.pt_bg_url);
     },
 
@@ -352,32 +423,21 @@ var QHSJ = new Vue({
 
 	// 拼贴诗选词翻页功能
     downlist() {
-      var i = this.ChooseLine_chage.length;
-      console.log(i);
-      if (this.ChooseLineList < i / 8) {
-        this.ChooseLineList = this.ChooseLineList + 1;
+      if (this.choosePage < this.chooseList.length-1) {
+        this.choosePage = this.choosePage + 1;
       }
     },
 
     uplist() {
-      if (this.ChooseLineList > 1) {
-        this.ChooseLineList = this.ChooseLineList - 1;
+      if (this.choosePage > 0) {
+        this.choosePage = this.choosePage - 1;
       }
     },
 
 	// 清空功能
     clean() {
-      //			this.Choosing_num=0
-      //			this.Choosing_show =0
-
-      for (let i = 0; i < this.ChooseLine_chage.length; i++) {
-        this.ChooseLine_chage[i].ChooseNum = 0;
-        this.ChooseLine_chage[i].Ifchoose = 0;
-      }
-      //			console.log(this.Choosing_num)
-      this.Choosing = [{}];
-      this.Choosing_num = 0;
-      //			console.log(this.Choosing_num)
+      this.poemList[this.currentLine].items = [];
+      this.poemList[this.currentLine].len = 0;
     },
 
     selectover() {
@@ -386,82 +446,8 @@ var QHSJ = new Vue({
       //			this.next()
     },
 
-    choose(item, index) {
-      //			console.log(item)
-      var cesh = item.page;
-      //			console.log(cesh)
-
-      if (item.Ifchoose == 0) {
-        //	添加数组
-        if (this.Choosing_num < 6) {
-          //限制选择个数
-          item.Ifchoose = item.Ifchoose + 1;
-          this.Choosing_show = this.Choosing_show + 1;
-
-          this.Choosing_num = this.Choosing_num + 1;
-          item.ChooseNum = this.Choosing_num;
-          var newchooselist = this.Choosing.concat(cesh);
-          this.Choosing = newchooselist;
-
-          this.Choosing_width[this.Choosing_num].img_width = item.img_width;
-          this.Choosing_width[this.Choosing_num].img_height = item.img_height;
-          console.log(this.Choosing_width);
-        }
-
-        //弹窗提示超过数字
-        else {
-          //					console.log(123442525)
-          if ((this.Iffull = false)) {
-            this.Iffull = true;
-          }
-          if ((this.Iffull = true)) {
-            setTimeout(() => {
-              this.Iffull = false;
-            }, 2000);
-          }
-        }
-      }
-      //			取消选择
-      else {
-        item.Ifchoose = 0;
-        this.Choosing_num = this.Choosing_num - 1;
-
-        //				for (let x=1,x<this.Choosing_num,x++){
-        //					this.Choosing_width[this.Choosing_num]
-        //				}
-
-        //				获取长度
-        var cancel = this.Choosing.findIndex((item) => {
-          return item === cesh;
-        });
-        console.log(cancel);
-        //				console.log(this.Choosing_num)
-        this.Choosing.splice(cancel, 1);
-        this.Choosing_show = this.Choosing_show - 1;
-
-        for (let i = 0; i < this.ChooseLine_chage.length; i++) {
-          if (this.ChooseLine_chage[i].ChooseNum > cancel) {
-            this.ChooseLine_chage[i].ChooseNum =
-              this.ChooseLine_chage[i].ChooseNum - 1;
-            if (i <= 6) {
-              console.log("改变钱");
-              console.log(this.Choosing_width[i].img_width);
-              console.log(this.Choosing_width[i + 1].img_width);
-              this.Choosing_width[i].img_width =
-                this.Choosing_width[i + 1].img_width;
-              console.log("改变后");
-              console.log(this.Choosing_width[i].img_width);
-              console.log(this.Choosing_width[i + 1].img_width);
-            }
-          }
-        }
-
-        console.log(this.Choosing_width);
-      }
-    },
-
     doimg() {
-      if (this.Choosing_num >= 4) {
+      if (this.isPoemed) {
 		// 如果选词数量到达4行,点击后跳转下一页
         this.next();
       }
@@ -469,9 +455,10 @@ var QHSJ = new Vue({
 
     handleScreenshot() {
       this.botton_show = 1;
+      this.jietu();
       var a = this.botton_show;
       console.log(a);
-      this.jietu();
+      
     },
 
     //		截图方法
@@ -630,72 +617,72 @@ var QHSJ = new Vue({
       }
     },
 
-    //初始化图片大小(读取图片并记录参数)
-    datadragEnd(a, b) {
-      for (let i = a; i <= b; i++) {
-        // 创建实例对象
-        let img = new Image();
-        // 图片地址
+    // //初始化图片大小(读取图片并记录参数)
+    // datadragEnd(a, b) {
+    //   for (let i = a; i <= b; i++) {
+    //     // 创建实例对象
+    //     let img = new Image();
+    //     // 图片地址
 
         
-          img.src = `./img/items/item${i}.png`;
+    //       img.src = `./img/items/item${i}.png`;
 
-        let res = {};
-        var that = this;
-        img.onload = function () {
-          res = {
-            width: img.width,
-            height: img.height,
-          };
-          //					 console.log(res);
-          //获取到图片的宽高
-          that.ChooseLineAll[i].img_width = res.width / 2.2 + "px";
-          that.ChooseLineAll[i].img_height = res.height / 2.2 + "px";
-        };
-      }
-    },
+    //     let res = {};
+    //     var that = this;
+    //     img.onload = function () {
+    //       res = {
+    //         width: img.width,
+    //         height: img.height,
+    //       };
+    //       //					 console.log(res);
+    //       //获取到图片的宽高
+    //       that.ChooseLineAll[i].img_width = res.width / 2.2 + "px";
+    //       that.ChooseLineAll[i].img_height = res.height / 2.2 + "px";
+    //     };
+    //   }
+    // },
 
-    //初始化选项列表
-    gotochoose() {
-      for (let i = 1; i <= 109; i++) {
-          var choosepage = `./img/items/item${i}.png`;
+    // //初始化选项列表
+    // gotochoose() {
+    //   for (let i = 1; i <= 109; i++) {
+    //       var choosepage = `./img/items/item${i}.png`;
 
-        var chooseitem = {
-          page: choosepage,
-          img: i,
-          Ifchoose: 0,
-          ChooseNum: 0,
-          img_width: 1,
-          img_height: 1,
-        };
-        let newchooselist = this.ChooseLineAll.concat(chooseitem);
-        this.ChooseLineAll = newchooselist;
-      }
+    //     var chooseitem = {
+    //       page: choosepage,
+    //       img: i,
+    //       Ifchoose: 0,
+    //       ChooseNum: 0,
+    //       img_width: 1,
+    //       img_height: 1,
+    //     };
+    //     let newchooselist = this.ChooseLineAll.concat(chooseitem);
+    //     this.ChooseLineAll = newchooselist;
+    //   }
 
-      //			console.log(this.ChooseLineAll)
-    },
+    //   //			console.log(this.ChooseLineAll)
+    // },
 
     GoToUser() {
       if (this.input_warnning == "立即提交" && this.inputList.name != "") {
         this.getbg();
         this.next();
 
-        for (let x = 100; x <= 109; x++) {
-          //添加通用的
-          let gotolist = this.ChooseLineAll[x];
-          let list = this.ChooseLine_chage.concat(gotolist);
-          this.ChooseLine_chage = list;
-        }
+        // for (let x = 100; x <= 109; x++) {
+        //   //添加通用的
+        //   let gotolist = this.ChooseLineAll[x];
+        //   let list = this.ChooseLine_chage.concat(gotolist);
+        //   this.ChooseLine_chage = list;
+        // }
 
-        let randomlist = this.ChooseLineAll.slice(0,99);
-        //					console.log(randomlist)
-        randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
-        for (let a = 0; a < 18; a++) {
-          let gotolist = randomlist[a];
-          let list = this.ChooseLine_chage.concat(gotolist);
-          this.ChooseLine_chage = list;
-        }
-        this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
+        // let randomlist = this.ChooseLineAll.slice(0,99);
+        // //					console.log(randomlist)
+        // randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
+        // for (let a = 0; a < 18; a++) {
+        //   let gotolist = randomlist[a];
+        //   let list = this.ChooseLine_chage.concat(gotolist);
+        //   this.ChooseLine_chage = list;
+        // }
+        // this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
       }
     },
   },
