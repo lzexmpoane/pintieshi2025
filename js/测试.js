@@ -139,6 +139,8 @@ var QHSJ = new Vue({
     school: "", // 校区
     input_warnning: "请填写必填项", // 输入提示
     input_warnning_show: false, // 输入提示是否显示
+
+    chooseList: [],
   },
 
   // 挂载时加载必要数据
@@ -163,6 +165,7 @@ var QHSJ = new Vue({
 
     this.gotochoose();
     this.datadragEnd(1, 109);
+    this.createStrList();
     //		console.log(this.ChooseLine_chage)
   },
 
@@ -179,6 +182,49 @@ var QHSJ = new Vue({
 
   // 检测音频是否正常播放
   methods: {
+    chooseTable(){
+
+    },
+
+    createStrList(){
+      let pageTempList = [] // 页表
+      let tempList = []; // 总表
+      let rowTempList = []; // 行表
+      let rowLen = 0;
+      let colLen = 0;
+      for (let p = 0; p < item.length; p++){
+        for (let i = 0; i < item[p].length; i++){
+          rowLen += item[p][i].len;
+          if (rowLen > 8){
+            pageTempList.push(rowTempList)
+            rowLen = 0;
+            rowTempList = [];
+
+            colLen++;
+            if (colLen > 8){
+              tempList.push(pageTempList);
+              // console.log(pageTempList)
+              pageTempList = [];
+              colLen = 0;
+            }
+            continue;
+          }
+          rowTempList.push(item[p][i].str)
+        }
+        pageTempList.push(rowTempList);
+        rowTempList = []
+        rowLen = 0;
+
+        tempList.push(pageTempList);
+        pageTempList = [];
+        colLen = 0;
+      }
+
+      console.log(tempList)
+
+      this.chooseList = tempList;
+    },
+
     audioplayer() {
       //					console.log("play")
       var audio = document.getElementById("audios");
