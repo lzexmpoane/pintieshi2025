@@ -1,78 +1,13 @@
 // JavaScript Document
 
 var QHSJ = new Vue({
-  el: "#QHSJ", // Vue 实例挂载的元素
+  el: "#app", // Vue 实例挂载的元素
   data: {
     // 页面背景变换的控制，可能是背景图片或者其他样式的变化
     transform_bg: -1,
 
-    // 两个图片的链接，分别是加入信息和二维码图片的链接
-    join_src:
-      "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
-    erweima_src:
-      "https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E5%8F%82%E4%B8%8E%E4%BF%A1%E6%81%AF%402x.png",
-
-    // 用户选择的拼贴诗表，保存每一行选择的情况
-    // ChooseLine: [
-    //   {
-    //     page: "",
-    //     img: "1",
-    //     Ifchoose: 0,
-    //     ChooseNum: 0,
-    //     img_width: 1,
-    //     img_height: 1,
-    //   },
-    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "1", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "4", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "3", Ifchoose: 0, ChooseNum: 0 },
-    //   { page: "", img: "2", Ifchoose: 0, ChooseNum: 0 },
-    // ],
-
-    // 中转的选择行列表
-    // ChooseLine_zhongzhuan: [],
-
-    // 变化后的实际选择列表
-    // ChooseLine_chage: [],
-    // ChooseLineAll: [{}],
-
     // 选择行列表的初始值
     choosePage: 0,
-    qqq: 1,
-
-    // 四个图片选择项（1-4）
-    shoot: [1, 2, 3, 4],
-
-    // 存储选择的拼贴诗图片的源地址
-    Choosing: [{}],
-
-    // 存储每个选择图片的宽高
-    Choosing_width: [
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-      { img_width: 1, img_height: 1 },
-    ],
-
-    // 当前选中的拼贴诗图的数量
-    Choosing_num: 0,
-
-    // 当前选中的拼贴诗图是否显示
-    Choosing_show: 0,
-
-    // 每一页的标题内容
-    pageone: "分析世界",
-    pagetwo: "我爱福州八中",
-    pagethree: "love",
-    pagefour: "444555世界",
 
     // 截图的URL地址
     Screenimg: "",
@@ -85,7 +20,7 @@ var QHSJ = new Vue({
 
     // 背景图片的URL地址
     pt_bg_url:
-      "./img/bgs/bg1.png",
+      "./img/bgs/bg1.jpg",
 
     // 页面上的内容长度
     len: 5,
@@ -448,7 +383,6 @@ var QHSJ = new Vue({
 
     doimg() {
       if (this.isPoemed) {
-		// 如果选词数量到达4行,点击后跳转下一页
         this.next();
       }
     },
@@ -471,29 +405,9 @@ var QHSJ = new Vue({
         useCORS: true,
       }).then((canvas) => {
         const dataURL = canvas.toDataURL("image/png");
-        //				  this.dataURL = dataURL
         this.Screenimg = dataURL;
-        //				  const creatDom = document.createElement('a')
-        //				  document.body.appendChild(creatDom)
-        //				  creatDom.href = dataURL
-        //				  creatDom.download = '导出淘汰案例'
-        //				  creatDom.click()
       });
     },
-
-    //
-    //		mouseWheelHandle(){
-    //			console.log(1111111)
-    //		},
-    //
-    //		stopMove(){
-    //  let m = function(e){e.preventDefault();};
-    //  document.body.style.overflow='hidden';
-    //  document.addEventListener("touchmove",m,{ passive:false });//禁止页面滑动
-    //			console.log(1111111)
-    //},
-    //
-    //
 
     // 滚动事件
     move(index) {
@@ -617,72 +531,10 @@ var QHSJ = new Vue({
       }
     },
 
-    // //初始化图片大小(读取图片并记录参数)
-    // datadragEnd(a, b) {
-    //   for (let i = a; i <= b; i++) {
-    //     // 创建实例对象
-    //     let img = new Image();
-    //     // 图片地址
-
-        
-    //       img.src = `./img/items/item${i}.png`;
-
-    //     let res = {};
-    //     var that = this;
-    //     img.onload = function () {
-    //       res = {
-    //         width: img.width,
-    //         height: img.height,
-    //       };
-    //       //					 console.log(res);
-    //       //获取到图片的宽高
-    //       that.ChooseLineAll[i].img_width = res.width / 2.2 + "px";
-    //       that.ChooseLineAll[i].img_height = res.height / 2.2 + "px";
-    //     };
-    //   }
-    // },
-
-    // //初始化选项列表
-    // gotochoose() {
-    //   for (let i = 1; i <= 109; i++) {
-    //       var choosepage = `./img/items/item${i}.png`;
-
-    //     var chooseitem = {
-    //       page: choosepage,
-    //       img: i,
-    //       Ifchoose: 0,
-    //       ChooseNum: 0,
-    //       img_width: 1,
-    //       img_height: 1,
-    //     };
-    //     let newchooselist = this.ChooseLineAll.concat(chooseitem);
-    //     this.ChooseLineAll = newchooselist;
-    //   }
-
-    //   //			console.log(this.ChooseLineAll)
-    // },
-
     GoToUser() {
       if (this.input_warnning == "立即提交" && this.inputList.name != "") {
         this.getbg();
         this.next();
-
-        // for (let x = 100; x <= 109; x++) {
-        //   //添加通用的
-        //   let gotolist = this.ChooseLineAll[x];
-        //   let list = this.ChooseLine_chage.concat(gotolist);
-        //   this.ChooseLine_chage = list;
-        // }
-
-        // let randomlist = this.ChooseLineAll.slice(0,99);
-        // //					console.log(randomlist)
-        // randomlist.sort((a, b) => Math.random() - 0.5); //随机全部的
-        // for (let a = 0; a < 18; a++) {
-        //   let gotolist = randomlist[a];
-        //   let list = this.ChooseLine_chage.concat(gotolist);
-        //   this.ChooseLine_chage = list;
-        // }
-        // this.ChooseLine_chage.sort((a, b) => Math.random() - 0.5); //随机全部的
       }
     },
   },

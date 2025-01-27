@@ -167,7 +167,7 @@ background-image: url("../img/title/bg3.png");
 /*	    padding-top: 15px;*/
 }
 
-#QHSJ{
+#app{
 	overflow: hidden;
 	
 }
@@ -228,18 +228,12 @@ text-align: center;
 	max-width: 80px
 }
 
-
-
 .under{
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     margin: 0px 3%;
 }
-/* 
-.erweima{
-	margin-left: 30px;
-} */
 
 .item{
 /*	width: 100%;*/
