@@ -50,7 +50,7 @@
         </div>
 
         <!--			第2页-->
-        <div class="p_two" v-show="fullpage.current >= 2" :style="{width:windowWidth,height:windowHeight}">
+        <div class="p_two" v-show="fullpage.current >= 1" :style="{width:windowWidth,height:windowHeight}">
           <div class="userbox">
             <div class="boxlist">
               <div class="usertitle">基本信息填写</div>
@@ -293,7 +293,7 @@
         </div>
 
         <!--		实际的截图页面-->
-        <div ref="faultTree">
+        <div ref="faultTree" v-show="fullpage.current >= 3">
           <img
             crossorigin="anonymous"
             :src="pt_bg_url"
