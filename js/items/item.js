@@ -40,7 +40,7 @@ const item = [
         {str: "零", len: 1},
         {str: "一", len: 1},
         {str: "二", len: 1},
-        {str: "三", len: 1},
+        {str: "过", len: 1},
         {str: "这", len: 1},
         {str: "已经", len: 2},
         {str: "也", len: 1},
