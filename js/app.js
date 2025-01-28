@@ -77,6 +77,19 @@ var QHSJ = new Vue({
 
     chooseList: [],
     chooseBgsList: [],
+    chooseNameList: [
+      '助词页',
+      '青春页1',
+      '青春页2',
+      '青春页3',
+      '青春页4',
+      '新春页1',
+      '新春页2',
+      '学科页1',
+      '学科页2',
+      '学科页3',
+      '学科页4',
+    ],
     chooseBgStyle: {
       width: this.windowWidth, 
       height: this.windowHeight,

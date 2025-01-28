@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no" />
     <title>拾零成诗</title>
-    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./css/stylesheet.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
@@ -164,7 +164,7 @@
               <div class="line" style="position: relative">
                 <img src="./img/ui/btnbg.webp" />
                 <select v-model="choosePage">
-                  <option v-for="i in chooseList.length" :value="i-1">第{{i}}页</option>
+                  <option v-for="i in chooseList.length" :value="i-1">{{chooseNameList[i-1]}}</option>
                 </select>
               </div>
               <div class="xia" @click="downlist()">
@@ -186,9 +186,13 @@
               <div @click="doimg()">
                 <img
                   src="./img/ui/build.webp"
-                  style="max-width: 240px; height: 32.3px; margin-right: 12px;"
+                  style="max-width: 160px; height: 32.3px; margin-right: 12px;"
                   :style="{opacity:isPoemed ? '1' :'0.7'}"
                 />
+              </div>
+              <div class="clean btn" @click="clean()">
+                <img src="./img/ui/btnbg.webp" />
+                <div class="btntext">撤回</div>
               </div>
               <div class="clean" @click="clean()">
                 <img
