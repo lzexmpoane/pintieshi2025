@@ -19,7 +19,7 @@
     <div id="app" :style="{ height: windowHeight}" ref="fullPage" v-cloak>
       <div class="fullPageContainer" ref="fullPageContainer">
         <!--			第一页-->
-        <div class="p_one" :style="{width:windowWidth,height:windowHeight} ">
+        <div class="p_one" v-show="fullpage.current >= 1" :style="{width:windowWidth,height:windowHeight} ">
           <audio
             src="./audio/BGM.mp3"
             type="audio/mpeg"
@@ -33,24 +33,24 @@
 -->
           <!-- 170标志 -->
           <img
-            src="./img/title/author.png"
+            src="./img/title/author.webp"
             style="margin-top: 60px; width: 250px"
           />
           <!-- 标题 -->
           <img
-            src="./img/title/title.png"
+            src="./img/title/title.webp"
             style="margin-top: 15%; width: 75%"
           />
           <!-- 按钮 -->
           <img
-            src="./img/ui/start.png"
+            src="./img/ui/start.webp"
             @click="next()"
             style="width: 30%; top: 10%; position: relative"
           />
         </div>
 
         <!--			第2页-->
-        <div class="p_two" :style="{width:windowWidth,height:windowHeight}">
+        <div class="p_two" v-show="fullpage.current >= 2" :style="{width:windowWidth,height:windowHeight}">
           <div class="userbox">
             <div class="boxlist">
               <div class="usertitle">基本信息填写</div>
@@ -65,6 +65,7 @@
                       class="userbutton"
                       style="width: 195px"
                       v-model="inputList.user_in"
+                      @change="createClassList()"
                     >
                       <option selected disabled hidden>请选择年级</option>
                       <option v-for="(item,index) in user_in">{{item}}</option>
@@ -113,15 +114,15 @@
             </div>
           </div>
           <div style="text-align: center; width: 100%">
-            <img style="width: 163px" src="./img/title/author.png" />
+            <img style="width: 163px" src="./img/title/author.webp" />
           </div>
         </div>
 
         <!--			第4页-->
-        <div class="p_four" :style="chooseBgStyle">
+        <div class="p_four" v-show="fullpage.current >= 2" :style="chooseBgStyle">
           <div class="banner">福州八中学生会特别企划</div>
           <div class="logo_title">
-            <img src="./img/title/title_long.png" style="width: 77%" />
+            <img src="./img/title/title_long.webp" style="width: 77%" />
           </div>
           <div class="imgbox">
             <div
@@ -156,37 +157,48 @@
             <div class="choose_botton">
               <div class="shang" @click="uplist()">
                 <img
-                  src="./img/ui/up.png"
+                  src="./img/ui/up.webp"
                   :style="{opacity:choosePage !== 0 ? '1' :'0.7'}"
                 />
               </div>
+              <div class="line" style="position: relative">
+                <img src="./img/ui/btnbg.webp" />
+                <select v-model="choosePage">
+                  <option v-for="i in chooseList.length" :value="i-1">第{{i}}页</option>
+                </select>
+              </div>
               <div class="xia" @click="downlist()">
                 <img
-                  src="./img/ui/down.png"
+                  src="./img/ui/down.webp"
                   :style="{opacity:choosePage !== chooseList.length-1 ? '1' :'0.7'}"
                 />
               </div>
               <div class="line" style="position: relative">
-                <img src="./img/ui/btnbg.png" />
+                <img src="./img/ui/btnbg.webp" />
                 <select v-model="currentLine">
                   <option v-for="i in 8" :value="i-1">第{{i}}行</option>
                 </select>
               </div>
+              
+            </div>
+
+            <div class="choose_botton" style="margin-top: 2px; justify-content: space-between;">
+              <div @click="doimg()">
+                <img
+                  src="./img/ui/build.webp"
+                  style="max-width: 240px; height: 32.3px; margin-right: 12px;"
+                  :style="{opacity:isPoemed ? '1' :'0.7'}"
+                />
+              </div>
               <div class="clean" @click="clean()">
                 <img
-                  src="./img/ui/clear.png"
+                  src="./img/ui/clear.webp"
+                  style="max-width: 80px; height: 32.3px; margin-right: 12px;"
                   :style="{opacity:poemList[currentLine].len !== 0 ? '1' :'0.7'}"
                 />
               </div>
             </div>
-
-            <div style="margin-left: 25px; margin-top: 2px" @click="doimg()">
-              <img
-                src="./img/ui/build.png"
-                style="max-width: 326px"
-                :style="{opacity:isPoemed ? '1' :'0.7'}"
-              />
-            </div>
+            
             <div class="advice">一行最多八个字，最多八行</div>
           </div>
           <div class="shupai" :style="{top:shupai_top}">
@@ -198,7 +210,7 @@
         </div>
 
         <!--		拼贴页面-->
-        <div>
+        <div v-show="fullpage.current == 4">
           <img
             crossorigin="anonymous"
             :src="pt_bg_url"
@@ -211,9 +223,9 @@
             :style="{height:windowHeight }"
             :v-if="Screenimg == ''"
           >
-            <div class="banner">福州八中学生会特别企划</div>
+            <div class="banner">福州八中学生会特别企划<img height="100%" src="./img/title/logo.webp" alt="" /></div>
             <div class="titleimg">
-              <img src="./img/title/title_long.png" style="width: 77%" />
+              <img src="./img/title/title_long.webp" style="width: 77%" />
             </div>
 
             <div class="book">
@@ -252,14 +264,14 @@
           >
             <div class="under">
               <div class="again" v-show="botton_show==0" @click="pre()">
-                <img src="./img/ui/restart.png" style="width: 100px" />
+                <img src="./img/ui/restart.webp" style="width: 100px" />
               </div>
               <!--						<div class="save" v-show="Screenimg ==''" @click="handleScreenshot()"><img src="https://xuexiziliaoceshi.oss-cn-hangzhou.aliyuncs.com/img/%E4%BF%9D%E5%AD%98%E5%88%86%E4%BA%AB.png" style="width: 100px"></div>-->
               <div class="save" v-show="botton_show==0" @click="handleScreenshot()">
-                <img src="./img/ui/over.png" style="width: 100px" />
+                <img src="./img/ui/over.webp" style="width: 100px" />
               </div>
               <div class="change" v-show="botton_show==0" @click="getbg()">
-                <img src="./img/ui/change.png" style="width: 100px" />
+                <img src="./img/ui/change.webp" style="width: 100px" />
               </div>
             </div>
           </div>
@@ -293,9 +305,9 @@
             style="padding: 0 4%"
             :style="{height:windowHeight }"
           >
-            <div class="banner">福州八中学生会特别企划</div>
+            <div class="banner">福州八中学生会特别企划<img height="100%" src="./img/title/logo.webp" alt=""></div>
             <div class="titleimg">
-              <img src="./img/title/title_long.png" style="width: 77%" />
+              <img src="./img/title/title_long.webp" style="width: 77%" />
             </div>
 
             <div class="book">

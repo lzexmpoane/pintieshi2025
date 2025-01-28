@@ -11,6 +11,11 @@
     src: url(../fonts/KingHwa_OldSong.ttf);
 }
 
+@font-face {
+    font-family: 思源黑体;
+    src: url(../fonts/SiYuanHeiTi_Heavy.ttf);
+}
+
 body{
 	margin: 0
 }
@@ -128,7 +133,7 @@ color: antiquewhite;
 
 .p_one{
 /*	background-color: cadetblue;*/
-	background-image: url("../img/title/bg1.jpg");
+	background-image: url("../img/title/bg1.webp");
 	    background-size: cover;
     background-position: center;
 	text-align: center;
@@ -136,7 +141,7 @@ color: antiquewhite;
 }
 
 .p_two{
-	background-image: url("../img/title/bg2.jpg");
+	background-image: url("../img/title/bg2.webp");
 	    background-size: cover;
     background-position: center;
 	display: flex;
@@ -201,8 +206,10 @@ font-size: 28px;
 }
 
 .banner{
+    display: flex;
+    justify-content: center;
 font-size: 13px;
-    font-family: PingFang SC;
+    font-family: "思源黑体", "PingFang SC";
     font-weight: 400;
     line-height: 18px;
     color: rgba(255,255,255,0.8);
@@ -211,6 +218,10 @@ font-size: 13px;
     text-align: center;
     position: relative;
     top: 30px;
+}
+
+.banner img {
+    width: 5%;
 }
 
 .logo_title{
@@ -266,7 +277,7 @@ text-align: center;
 }
 
 .userbox{
-    background-image: url("../img/title/box_bg.png");
+    background-image: url("../img/title/box_bg.webp");
     width: 375px;
     height: 522px;
     background-size: contain;

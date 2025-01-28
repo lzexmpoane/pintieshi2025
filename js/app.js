@@ -203,7 +203,7 @@ var QHSJ = new Vue({
           // item[p][i].class[`col-md-${item[p][i].len}`] = true;
           // item[p][i].class[`col-lg-${item[p][i].len}`] = true;
           item[p][i].style["width"] = item[p][i].len*10 + '%';
-          item[p][i].style["background-image"] = `url(./img/itembg/b${item[p][i].len}_${itembg}.png)`;
+          item[p][i].style["background-image"] = `url(./img/itembg/b${item[p][i].len}_${itembg}.webp)`;
           item[p][i].chosen = [];
 
           /**
@@ -272,10 +272,7 @@ var QHSJ = new Vue({
       }, 2000);
     },
 
-    // 表单检查与届数生成
-    Ifwarn() {
-      var that = this;
-
+    createClassList() {
       this.overyear = ["不显示班级"];
       if (this.inputList.user_in == "高一") {
         for (let i = 17; i >= 1; i--) {
@@ -303,7 +300,9 @@ var QHSJ = new Vue({
           this.overyear = newoveryear;
         }
       }
-
+    },
+    // 表单检查与届数生成
+    Ifwarn() {
       if (this.inputList.user_in != "请选择年级") {
         if (this.inputList.user_in != "不显示年级") {
           if (this.inputList.overyear != "班级") {
@@ -338,7 +337,7 @@ var QHSJ = new Vue({
 
 	// 随机获取背景图
     getbg() {
-      var bg_num = Math.floor(Math.random() * 14 + 1); // 1-12
+      var bg_num = Math.floor(Math.random() * 16 + 1); // 1-12
       this.pt_bg_url = `./img/bgs/bg${bg_num}.jpg`;
       console.log(this.pt_bg_url);
     },
@@ -390,9 +389,6 @@ var QHSJ = new Vue({
     handleScreenshot() {
       this.botton_show = 1;
       this.jietu();
-      var a = this.botton_show;
-      console.log(a);
-      
     },
 
     //		截图方法
@@ -430,10 +426,10 @@ var QHSJ = new Vue({
 
     // 往下切换
     next() {
-      if (this.fullpage.current == 1) {
-        // 如果当前页面编号+1 小于总个数，则可以执行向下滑动
-        this.audioplayer();
-      }
+      // if (this.fullpage.current == 1) {
+      //   // 如果当前页面编号+1 小于总个数，则可以执行向下滑动
+      //   this.audioplayer();
+      // }
 
       // if (this.inputList.user_in == "不显示年级") {
         // this.len = 5; // 页面的个数
@@ -471,65 +467,65 @@ var QHSJ = new Vue({
         this.move(this.fullpage.current); // 执行切换
       }
     },
-    // 清除触摸事件
-    handleTouchmove(event) {
-      event.preventDefault();
-    },
-    //手指按下屏幕
-    handleTouchstart(event) {
-      this.startTime = Date.now();
-      this.startX = event.changedTouches[0].clientX;
-      this.startY = event.changedTouches[0].clientY;
-    },
-    //手指离开屏幕
-    handleTouchend(event) {
-      const endTime = Date.now();
-      const endX = event.changedTouches[0].clientX;
-      const endY = event.changedTouches[0].clientY;
-      //判断按下的时长
-      if (endTime - this.startTime > 2000) {
-        return;
-      }
-      //滑动的方向
-      let direction = "";
-      //先判断用户滑动的距离，是否合法，合法:判断滑动的方向 注意 距离要加上绝对值
-      if (Math.abs(endY - this.startY) > 10) {
-        //滑动方向
-        direction = endY - this.startY > 0 ? "down" : "up";
-      } else {
-        return;
-      }
-      //用户做了合法的滑动操作
-      // console.log('方向'+direction)
-      if (direction === "up") {
-        this.next();
-      }
-      if (direction === "down") {
-        this.pre();
-      }
-    },
+    // // 清除触摸事件
+    // handleTouchmove(event) {
+    //   event.preventDefault();
+    // },
+    // //手指按下屏幕
+    // handleTouchstart(event) {
+    //   this.startTime = Date.now();
+    //   this.startX = event.changedTouches[0].clientX;
+    //   this.startY = event.changedTouches[0].clientY;
+    // },
+    // //手指离开屏幕
+    // handleTouchend(event) {
+    //   const endTime = Date.now();
+    //   const endX = event.changedTouches[0].clientX;
+    //   const endY = event.changedTouches[0].clientY;
+    //   //判断按下的时长
+    //   if (endTime - this.startTime > 2000) {
+    //     return;
+    //   }
+    //   //滑动的方向
+    //   let direction = "";
+    //   //先判断用户滑动的距离，是否合法，合法:判断滑动的方向 注意 距离要加上绝对值
+    //   if (Math.abs(endY - this.startY) > 10) {
+    //     //滑动方向
+    //     direction = endY - this.startY > 0 ? "down" : "up";
+    //   } else {
+    //     return;
+    //   }
+    //   //用户做了合法的滑动操作
+    //   // console.log('方向'+direction)
+    //   if (direction === "up") {
+    //     this.next();
+    //   }
+    //   if (direction === "down") {
+    //     this.pre();
+    //   }
+    // },
 
-    // 监听鼠标监听
-    mouseWheelHandle(event) {
-      // 添加冒泡阻止
-      let evt = event || window.event;
-      if (evt.stopPropagation) {
-        evt.stopPropagation();
-      } else {
-        evt.returnValue = false;
-      }
-      if (this.fullpage.isScrolling) {
-        // 判断是否可以滚动
-        return false;
-      }
-      let e = event.originalEvent || event;
-      this.fullpage.deltaY = e.deltaY || e.detail; // Firefox使用detail
-      if (this.fullpage.deltaY > 0) {
-        this.next();
-      } else if (this.fullpage.deltaY < 0) {
-        this.pre();
-      }
-    },
+    // // 监听鼠标监听
+    // mouseWheelHandle(event) {
+    //   // 添加冒泡阻止
+    //   let evt = event || window.event;
+    //   if (evt.stopPropagation) {
+    //     evt.stopPropagation();
+    //   } else {
+    //     evt.returnValue = false;
+    //   }
+    //   if (this.fullpage.isScrolling) {
+    //     // 判断是否可以滚动
+    //     return false;
+    //   }
+    //   let e = event.originalEvent || event;
+    //   this.fullpage.deltaY = e.deltaY || e.detail; // Firefox使用detail
+    //   if (this.fullpage.deltaY > 0) {
+    //     this.next();
+    //   } else if (this.fullpage.deltaY < 0) {
+    //     this.pre();
+    //   }
+    // },
 
     GoToUser() {
       if (this.input_warnning == "立即提交" && this.inputList.name != "") {
