@@ -34,18 +34,18 @@
           <!-- 170标志 -->
           <img
             src="./img/title/author.png"
-            style="margin-top: 30px; width: 163px"
+            style="margin-top: 60px; width: 250px"
           />
           <!-- 标题 -->
           <img
             src="./img/title/title.png"
-            style="margin-top: 25%; width: 75%"
+            style="margin-top: 15%; width: 75%"
           />
           <!-- 按钮 -->
           <img
             src="./img/ui/start.png"
             @click="next()"
-            style="width: 35%; top: 15%; position: relative"
+            style="width: 30%; top: 10%; position: relative"
           />
         </div>
 
@@ -219,8 +219,9 @@
             <div class="book">
               <div
                 class="bookpos"
-                style="display: flex"
-                v-for="line in poemList"
+                v-for="(line, l_index) in poemList"
+                style="display: flex; display: -webkit-flex;"
+                :style="{'justify-content': l_index%2 === 0? 'flex-start': 'flex-end',}"
               >
                 <div
                   v-for="(item, index) in line.items"
@@ -300,8 +301,9 @@
             <div class="book">
               <div
                 class="bookpos"
-                style="display: flex"
-                v-for="line in poemList"
+                v-for="(line, l_index) in poemList"
+                style="display: flex; display: -webkit-flex;"
+                :style="{'justify-content': l_index%2 === 0? 'flex-start': 'flex-end',}"
               >
                 <div
                   v-for="(item, index) in line.items"

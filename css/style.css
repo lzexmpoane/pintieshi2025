@@ -130,7 +130,7 @@ color: antiquewhite;
 /*	background-color: cadetblue;*/
 	background-image: url("../img/title/bg1.jpg");
 	    background-size: cover;
-    background-position: right;
+    background-position: center;
 	text-align: center;
 	
 }
@@ -138,7 +138,7 @@ color: antiquewhite;
 .p_two{
 	background-image: url("../img/title/bg2.jpg");
 	    background-size: cover;
-    background-position: right;
+    background-position: center;
 	display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -163,7 +163,7 @@ background-image: url("../img/title/bg3.png");
 .p_four{
 	/* background-image: url("../img/title/choosebg4.png"); */
 		    background-size: cover;
-    background-position: right;
+    background-position: center;
 /*	    padding-top: 15px;*/
 }
 
