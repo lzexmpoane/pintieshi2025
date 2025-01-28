@@ -293,6 +293,18 @@ const item = [
     {str: "有机", len: 2},
     {str: "配平", len: 2},
     {str: "除杂", len: 2}
+],
+[
+    {str: " ", len: 1},
+    {str: "。", len: 1},
+    {str: "，", len: 1},
+    {str: "、", len: 1},
+    {str: "？", len: 1},
+    {str: "！", len: 1},
+    {str: "：", len: 1},
+    {str: "；", len: 1},
+    {str: "”", len: 1},
+    {str: "——", len: 2},
+    {str: "……", len: 2},
 ]
 ]
-

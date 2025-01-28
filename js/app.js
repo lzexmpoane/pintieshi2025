@@ -89,6 +89,7 @@ var QHSJ = new Vue({
       '学科页2',
       '学科页3',
       '学科页4',
+      '标点页',
     ],
     chooseBgStyle: {
       width: this.windowWidth, 
@@ -147,10 +148,11 @@ var QHSJ = new Vue({
 
     if (this.fullpage.current == 3) {
       this.isPoemed = !!(this.poemList.reduce((prev, curr)=>(isNaN(prev) ? prev.len+curr.len: prev+curr.len)))
+      let bg = this.choosePage === 11 ? this.chooseBgsList[0]: this.chooseBgsList[this.choosePage]
       this.chooseBgStyle = {
         width: this.windowWidth, 
         height: this.windowHeight,
-        "background-image": `url(./img/choosebgs/bg${this.chooseBgsList[this.choosePage]+1}.jpg)`,
+        "background-image": `url(./img/choosebgs/bg${bg+1}.jpg)`,
       }
     }
   },
@@ -216,7 +218,7 @@ var QHSJ = new Vue({
           // item[p][i].class[`col-md-${item[p][i].len}`] = true;
           // item[p][i].class[`col-lg-${item[p][i].len}`] = true;
           item[p][i].style["width"] = item[p][i].len*10 + '%';
-          item[p][i].style["background-image"] = `url(./img/itembg/b${item[p][i].len}_${itembg}.webp)`;
+          item[p][i].style["background-image"] = `url(./img/itembg/b${item[p][i].len}_${itembg}.png)`;
           item[p][i].chosen = [];
 
           /**
@@ -385,6 +387,13 @@ var QHSJ = new Vue({
     clean() {
       this.poemList[this.currentLine].items = [];
       this.poemList[this.currentLine].len = 0;
+    },
+
+    redo() {
+      let item = this.poemList[this.currentLine].items.pop()
+      if (!!item){
+        this.poemList[this.currentLine].len -= item.len;
+      }
     },
 
     selectover() {

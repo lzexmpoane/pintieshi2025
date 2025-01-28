@@ -185,18 +185,21 @@
             <div class="choose_botton" style="margin-top: 2px; justify-content: space-between;">
               <div @click="doimg()">
                 <img
-                  src="./img/ui/build.webp"
-                  style="max-width: 160px; height: 32.3px; margin-right: 12px;"
+                  src="./img/ui/build.png"
+                  style="max-width: 173px; height: 32.3px; margin-right: 12px;"
                   :style="{opacity:isPoemed ? '1' :'0.7'}"
                 />
               </div>
-              <div class="clean btn" @click="clean()">
-                <img src="./img/ui/btnbg.webp" />
-                <div class="btntext">撤回</div>
+              <div class="clean" @click="redo()">
+                <img
+                  src="./img/ui/delete.png"
+                  style="max-width: 80px; height: 32.3px; margin-right: 12px;"
+                  :style="{opacity:poemList[currentLine].len !== 0 ? '1' :'0.7'}"
+                />
               </div>
               <div class="clean" @click="clean()">
                 <img
-                  src="./img/ui/clear.webp"
+                  src="./img/ui/clear.png"
                   style="max-width: 80px; height: 32.3px; margin-right: 12px;"
                   :style="{opacity:poemList[currentLine].len !== 0 ? '1' :'0.7'}"
                 />
@@ -242,7 +245,7 @@
                 <div
                   v-for="(item, index) in line.items"
                   class="item"
-                  :style="item.style"
+                  :style="{...item.style, visibility: item.str === ' '? 'hidden': 'visible'}"
                 >
                   <div class="str">{{item.str}}</div>
                 </div>
@@ -324,7 +327,7 @@
                 <div
                   v-for="(item, index) in line.items"
                   class="item"
-                  :style="item.style"
+                  :style="{...item.style, visibility: item.str === ' '? 'hidden': 'visible'}"
                 >
                   <div class="str">{{item.str}}</div>
                 </div>
