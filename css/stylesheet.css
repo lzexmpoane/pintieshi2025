@@ -3,17 +3,17 @@
 
 @font-face {
     font-family: 站酷;
-    src: url(https://fzbzpintieshi.oss-cn-beijing.aliyuncs.com/fonts/ZHANKUKUAILETI2016XIUDINGBAN-1.TTF);
+    src: url(../fonts/ZHANKUKUAILETI2016XIUDINGBAN-1.TTF);
 }
 
 @font-face {
     font-family: 京华老宋体;
-    src: url(https://fzbzpintieshi.oss-cn-beijing.aliyuncs.com/fonts/KingHwa_OldSong.ttf);
+    src: url(../fonts/KingHwa_OldSong.ttf);
 }
 
 @font-face {
     font-family: 思源黑体;
-    src: url(https://fzbzpintieshi.oss-cn-beijing.aliyuncs.com/fonts/SiYuanHeiTi_Heavy.ttf);
+    src: url(../fonts/SiYuanHeiTi_Heavy.ttf);
 }
 
 body{
@@ -34,7 +34,7 @@ select{
 /*		    padding: 3% 3% 0 3%;*/
 /*	    margin-top: -15px;*/
 		    background-size: cover;
-    background-position: right;
+    background-position: center;
 	    background-repeat: no-repeat;
 }
 
@@ -69,37 +69,6 @@ select{
 	padding: 1% 3%;
 	color: white;
 /*	margin:  20px 0px */
-}
-
-
-.b1{
-	transform: rotate(2deg);
-    text-align: left;
-}
-
-.b2{
-	transform: rotate(0.5deg);
-    text-align: right;
-}
-
-.b3{
-	    transform: rotate(-1.5deg);
-    text-align: left;
-    padding-left: 4px;
-}
-
-.b4{
-	transform: rotate(2deg);
-    text-align: right;
-    padding-right: 8px;
-}
-.b5{
-	transform: rotate(-1deg);
-    text-align: left;
-}
-
-.b6{
-	transform: rotate(1deg);
 }
 
 .list_test{
@@ -327,6 +296,29 @@ margin: 20px;
 }
   
 .line select {
+    display: inline-block;
+    margin: 2px 12px 2px 0;
+	max-width: 80px;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 76%; 
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff0d5;
+    color: #be7c50;
+    border: 0;
+    font-family: "站酷";
+    font-size: 16px;
+}
+
+.btn {
+    position: relative;
+    display: flex;
+}
+
+.btntext {
     display: inline-block;
     margin: 2px 12px 2px 0;
 	max-width: 80px;
