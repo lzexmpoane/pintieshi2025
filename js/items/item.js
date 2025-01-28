@@ -20,6 +20,7 @@ const item = [
         {str: "有", len: 1},
         {str: "对", len: 1},
         {str: "错", len: 1},
+        {str: "过", len: 1},
         {str: "向", len: 1},
         {str: "与", len: 1},
         {str: "和", len: 1},
