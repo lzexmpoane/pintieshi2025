@@ -303,6 +303,7 @@ const item = [
     {str: "！", len: 1},
     {str: "：", len: 1},
     {str: "；", len: 1},
+    {str: "“", len: 1},
     {str: "”", len: 1},
     {str: "——", len: 2},
     {str: "……", len: 2},
