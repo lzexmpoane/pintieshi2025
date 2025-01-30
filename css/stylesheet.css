@@ -245,6 +245,14 @@ text-align: center;
     font-family: "京华老宋体", "华文行楷";
 }
 
+@media screen and ( max-width: 450px ) {
+
+    .item .str {
+        font-size: 1.4em;
+    }
+    
+}
+
 .userbox{
     background-image: url("../img/title/box_bg.webp");
     width: 375px;
