@@ -422,7 +422,7 @@ var QHSJ = new Vue({
         allowTaint: true,
         useCORS: true,
       }).then((canvas) => {
-        const dataURL = canvas.toDataURL("image/png");
+        const dataURL = canvas.toDataURL("image/png", 1);
         this.Screenimg = dataURL;
       });
     },
